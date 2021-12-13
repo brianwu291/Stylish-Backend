@@ -5,10 +5,25 @@ sudo launchctl load -F com.oracle.oss.mysql.mysqld.plist
 to check the running status of mysql, open system preference, click the mysql panel to check.
 
 to change the password, do following moves:
-> cd /usr/local/mysql/bin/\ (換行繼續輸入)
-> ./mysql -u root -p
-typing password
-> ALTER USER 'root'@'localhost' IDENTIFIED BY 'new password';
+
+stop mysql server running.(brew services stop mysql@...)
+
+> sudo mysqld_safe --skip-grant-tables;
+
+(so that no need to type password)
+
+> mysql -u root
+
+> UPDATE mysql.user SET Password=PASSWORD('your-password') WHERE User='root';(for MySQL older than MySQL 5.7)
+
+> USE mysql;
+> UPDATE mysql.user SET authentication_string=PASSWORD("your-password") WHERE User='root'; (For MySQL 5.7+)
+> FLUSH PRIVILEGES;
+> \q
+> (Refresh and quit)
+
+
+
 make sure type ; on every line of command when in mysql command.
 
 create database:
