@@ -123,4 +123,24 @@ or type following will get same result: (they are not the same, but will get sam
 > <br>
 > Table '{db_name}.{table_name}' doesn't exist
 
+### Insert Tables
 
+* adding data to tables
+
+> mysql: INSERT INTO {table_name}
+> <br>
+> ({column_name} (with some options), {column_name} (with some options), ...)
+> <br>
+> VALUES ({value1}, {value2}, ...)
+
+* To check data after added:
+> mysql: SELECT * FROM {table_name};
+
+* Adding multiple values:
+> mysql> INSERT INTO {table_name} ({column_name}, {column_name})
+> <br>
+>   -> VALUES ('onion bread', 23),
+> <br>
+>   -> ('chocolate cake', 45),
+> <br>
+>   -> ('original cake', 35);
