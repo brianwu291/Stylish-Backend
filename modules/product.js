@@ -10,8 +10,8 @@ function getProductById(id) {
       .then(connection => {
         connection.query(
           `SELECT * FROM product WHERE id = "${id}"`,
-          (err, result, fields) => {
-            if (err) reject(err);
+          (error, result, fields) => {
+            if (error) reject(error);
             resolve({ result, fields });
           },
         );
