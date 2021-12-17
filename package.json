@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start-dev": "export NODE_ENV=dev && nodemon index.js"
+    "start-dev": "export NODE_ENV=dev && nodemon index.js",
+    "start-test": "export NODE_ENV=test && nodemon index.js"
   },
   "author": "BrianWu",
   "license": "ISC",
