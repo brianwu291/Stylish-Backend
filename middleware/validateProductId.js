@@ -39,7 +39,7 @@ function isPositiveInteger(number) {
  * @param {Request} request
  * @param {Response} response
  * @param {NextFunction} next
- * @returns {Send}
+ * @returns {Send | NextFunction.return}
 */
 function validateProductId(request, response, next) {
   const productId = request.params.id;
