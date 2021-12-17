@@ -1,28 +1,28 @@
 require('dotenv').config();
 
-const path = require("path");
-const mysql = require("mysql");
+// const path = require('path');
+const express = require('express');
+const bodyParser = require('body-parser');
 
-const express = require("express");
+const { getDBConnection, useDBWithName } = require('./modules/connection');
+
+getDBConnection()
+  .then((connection) => {
+    useDBWithName({ connection, dbName: `foodie_${process.env.NODE_ENV}` })
+  });
 
 const app = express();
 
-const connection = mysql.createConnection({
-  host     : process.env.dbHost,
-  user     : process.env.dbUser,
-  password : process.env.dbPassword,
-});
- 
-// connection.connect(function(err) {
-//   if (err) {
-//     console.error('error connecting: ' + err.stack);
-//     return;
-//   }
- 
-//   console.log('connected as id ' + connection.threadId);
-// });
+/* Middleware */
+app.use(bodyParser.json());
+app.use(express.static("public"));
 
-// app.use(express.static("public"));
+/* Routes */
+require('./routes/productRoutes')(app);
+
+// app.get('/', (req, res, next) => {
+//   next();
+// })
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
