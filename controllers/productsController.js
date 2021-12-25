@@ -1,7 +1,7 @@
 const {
   getProductById,
   createOneNewProduct,
-} = require('../modules/product');
+} = require('../modules/products');
 
 /**
  * @typedef {Object {string, any}} Response
@@ -23,7 +23,9 @@ function getOneProduct(request, response) {
         });
       }
 
-      return response.status(200).send(result[0]);
+      return response
+        .status(200)
+        .send(result[0]);
     })
     .catch(() => response.status(500).send('something went wrong'));
 }
@@ -43,7 +45,10 @@ function createOneProduct(request, response) {
     .then(({ result }) => (
       response.status(200).send({ id: result.insertId })
     ))
-    .catch(({ message }) => response.status(400).send(message));
+    .catch(({ message }) => response
+      .status(400)
+      .send(message)
+    );
 }
 
 const productController = {

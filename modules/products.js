@@ -9,7 +9,7 @@ function getProductById(id) {
     getDBConnection()
       .then(connection => {
         connection.query(
-          `SELECT * FROM product WHERE id = "${id}"`,
+          `SELECT id, name, price, category_id FROM products WHERE id = "${id}"`,
           (error, result, fields) => {
             if (error) reject(error);
             resolve({ result, fields });
@@ -30,7 +30,7 @@ function createOneNewProduct({ name, price, categoryId }) {
     getDBConnection()
       .then(connection => {
         connection.query(
-          `INSERT INTO product (name, price, category_id)
+          `INSERT INTO products (name, price, category_id)
           VALUES ("${name}", ${price}, ${categoryId});`,
           (error, result, fields) => {
             if (error) reject(error);

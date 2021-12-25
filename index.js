@@ -2,6 +2,7 @@ require('dotenv').config();
 
 // const path = require('path');
 const express = require('express');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const { getDBConnection, useDBWithName } = require('./modules/connection');
@@ -16,15 +17,18 @@ const app = express();
 /* Middleware */
 app.use(bodyParser.json());
 app.use(express.static("public"));
+app.use(cors({
+  origin: 'http://localhost:3000'
+}));
 
 /* Routes */
-require('./routes/productRoutes')(app);
+require('./routes/productsRoutes')(app);
 
 // app.get('/', (req, res, next) => {
 //   next();
 // })
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT;
 app.listen(PORT, () => {
   console.log("Listening at " + PORT);
 });

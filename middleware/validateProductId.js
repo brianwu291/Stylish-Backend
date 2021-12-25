@@ -1,5 +1,7 @@
 const isString = require('lodash/isString')
 
+const isPositiveInteger = require('../utils/isPositiveInteger');
+
 /**
  * @constant
  * @type {number}
@@ -12,22 +14,6 @@ const maxStringLength = 17;
 */
 function isStringLengthValid(string = '') {
   return isString(string) && string.length <= maxStringLength;
-}
-
-/**
- * @param {String} number
- * @returns {Bool}
-*/
-function isPositiveInteger(number) {
-  const convertedNumber = parseInt(number, 10);
-  
-  const isNaN = Number.isNaN(convertedNumber);
-  const isSafeInteger = Number.isSafeInteger(convertedNumber);
-  const isNegativeOrZero = convertedNumber <= 0;
-
-  if (isNaN || isNegativeOrZero || !isSafeInteger) return false;
-
-  return true;
 }
 
 /**
@@ -57,8 +43,6 @@ function validateProductId(request, response, next) {
 }
 
 module.exports = {
-  maxStringLength,
-  isStringLengthValid,
   isPositiveInteger,
   validateProductId,
 };

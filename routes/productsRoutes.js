@@ -1,7 +1,7 @@
 const {
   getOneProduct,
   createOneProduct,
-} = require('../controllers/productController');
+} = require('../controllers/productsController');
 
 const {
   validateProductId
@@ -11,7 +11,7 @@ const {
  * @constant
  * @type {string}
 */
-const API_PREFIX = '/api/product';
+const API_PREFIX = '/api/products';
 
 
 /**
@@ -21,10 +21,10 @@ const API_PREFIX = '/api/product';
  * @param {Application} App
  * @returns {void}
 */
-function productRoutes(App) {
+function productsRoutes(App) {
   App.get(`${API_PREFIX}/:id`, validateProductId, getOneProduct);
 
   App.post(`${API_PREFIX}/create`, createOneProduct)
 }
 
-module.exports = productRoutes;
+module.exports = productsRoutes;
