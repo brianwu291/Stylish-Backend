@@ -3,10 +3,10 @@ const mysql = require('mysql2');
 const { getEnv } = require('../config/env');
 
 const connection = mysql.createConnection({
-  host     : getEnv().host,
-  user     : getEnv().user,
-  password : getEnv().password,
-  port     : getEnv().port,
+  host     : getEnv().database.host,
+  user     : getEnv().database.user,
+  password : getEnv().database.password,
+  port     : getEnv().database.port,
 });
 
 /**
