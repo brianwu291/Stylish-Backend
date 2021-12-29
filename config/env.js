@@ -1,4 +1,8 @@
-const env = {
+import { config } from 'dotenv';
+
+config();
+
+export const env = {
   prod: {
     database: {
       host: process.env.prodDbHost,
@@ -25,7 +29,7 @@ const env = {
   },
 }
 
-function getEnv() {
+export function getEnv() {
   switch (process.env.NODE_ENV) {
     case 'prod':
       return env.prod;
@@ -36,8 +40,3 @@ function getEnv() {
       return env.dev;
   }
 }
-
-module.exports = {
-  env,
-  getEnv,
-};

@@ -1,7 +1,8 @@
-const {
+import {
   getProductById,
   createOneNewProduct,
-} = require('../modules/products');
+} from '../modules/products.js';
+
 
 /**
  * @typedef {Object {string, any}} Response
@@ -12,7 +13,7 @@ const {
  * @param {Response} response
  * @returns {Promise <Send>}
 */
-function getOneProduct(request, response) {
+export function getOneProduct(request, response) {
   const productId = parseInt(request.params.id, 10);
 
   return getProductById(productId)
@@ -39,7 +40,7 @@ function getOneProduct(request, response) {
  * @param {Response} response
  * @returns {Promise <Send>}
 */
-function createOneProduct(request, response) {
+export function createOneProduct(request, response) {
   const productInfo = request.body;
   return createOneNewProduct(productInfo)
     .then(({ result }) => (
@@ -50,10 +51,3 @@ function createOneProduct(request, response) {
       .send(message)
     );
 }
-
-const productController = {
-  getOneProduct,
-  createOneProduct,
-};
-
-module.exports = productController;

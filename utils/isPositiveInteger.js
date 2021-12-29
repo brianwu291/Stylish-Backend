@@ -14,4 +14,4 @@ function isPositiveInteger(number) {
   return true;
 }
 
-module.exports = isPositiveInteger;
+export default isPositiveInteger;

@@ -1,11 +1,9 @@
-require('dotenv').config();
+import express from 'express'
+import cors from 'cors';
+import bodyParser from 'body-parser';
 
-// const path = require('path');
-const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-
-const { getDBConnection, useDBWithName } = require('./modules/connection');
+import { getDBConnection, useDBWithName } from './modules/connection.js';
+import productsRoutes from './routes/productsRoutes.js';
 
 getDBConnection()
   .then((connection) => {
@@ -22,7 +20,7 @@ app.use(cors({
 }));
 
 /* Routes */
-require('./routes/productsRoutes')(app);
+productsRoutes(app);
 
 // app.get('/', (req, res, next) => {
 //   next();

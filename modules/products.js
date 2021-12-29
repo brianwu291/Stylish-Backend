@@ -1,10 +1,10 @@
-const { getDBConnection } = require('./connection');
+import { getDBConnection } from './connection.js';
 
 /**
  * @param {string} id - product id (primary key)
  * @returns {Promise<mysql.RowDataPacket[] | mysql.QueryError>}
 */
-function getProductById(id) {
+export function getProductById(id) {
   return new Promise((resolve, reject) => {
     getDBConnection()
       .then(connection => {
@@ -25,7 +25,7 @@ function getProductById(id) {
  * @param {string} categoryId - product categoryId
  * @returns {Promise<mysql.RowDataPacket[] | mysql.QueryError>}
 */
-function createOneNewProduct({ name, price, categoryId }) {
+export function createOneNewProduct({ name, price, categoryId }) {
   return new Promise((resolve, reject) => {
     getDBConnection()
       .then(connection => {
@@ -40,9 +40,3 @@ function createOneNewProduct({ name, price, categoryId }) {
       });
   });
 }
-
-
-module.exports = {
-  getProductById,
-  createOneNewProduct,
-};

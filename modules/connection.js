@@ -1,6 +1,6 @@
-require('dotenv').config();
-const mysql = require('mysql2');
-const { getEnv } = require('../config/env');
+import mysql from 'mysql2';
+
+import { getEnv } from '../config/env.js';
 
 const connection = mysql.createConnection({
   host     : getEnv().database.host,
@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
  * @param {void}
  * @returns {Promise<mysql.Connection | mysql.QueryError>}
 */
-function getDBConnection() {
+export function getDBConnection() {
   return new Promise((resolve, reject) => {
     connection.connect(function(err) {
       if (err) {
@@ -33,7 +33,7 @@ function getDBConnection() {
  * @param {string} config.dbName - database name
  * @returns {Promise<string | mysql.QueryError>}
 */
-function useDBWithName({ connection, dbName }) {
+export function useDBWithName({ connection, dbName }) {
   return new Promise((resolve, reject) => {
     connection.query(`USE ${dbName}`, (err) => {
       if (err) {
@@ -44,17 +44,3 @@ function useDBWithName({ connection, dbName }) {
     });
   });
 }
-
-const exportModules = {
-  getDBConnection,
-  useDBWithName,
-}
-
-/**
- * A module that return
- * get connection function
- * and
- * useDBWithName function
- * @module exportModules
- */
-module.exports = exportModules;

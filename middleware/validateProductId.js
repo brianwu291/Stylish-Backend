@@ -1,6 +1,6 @@
-const isString = require('lodash/isString')
+import isString from 'lodash/isString.js';
 
-const isPositiveInteger = require('../utils/isPositiveInteger');
+import isPositiveInteger from '../utils/isPositiveInteger.js';
 
 /**
  * @constant
@@ -27,7 +27,7 @@ function isStringLengthValid(string = '') {
  * @param {NextFunction} next
  * @returns {Send | NextFunction.return}
 */
-function validateProductId(request, response, next) {
+export function validateProductId(request, response, next) {
   const productId = request.params.id;
 
   const isValidId = (
@@ -41,8 +41,3 @@ function validateProductId(request, response, next) {
     errorKey: 'setting-error-product-id',
   });
 }
-
-module.exports = {
-  isPositiveInteger,
-  validateProductId,
-};

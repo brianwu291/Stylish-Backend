@@ -1,11 +1,11 @@
-const {
+import {
   getOneProduct,
   createOneProduct,
-} = require('../controllers/productsController');
+} from '../controllers/productsController.js';
 
-const {
+import {
   validateProductId
-} = require('../middleware/validateProductId');
+} from '../middleware/validateProductId.js';
 
 /**
  * @constant
@@ -27,4 +27,4 @@ function productsRoutes(App) {
   App.post(`${API_PREFIX}/create`, createOneProduct)
 }
 
-module.exports = productsRoutes;
+export default productsRoutes;
