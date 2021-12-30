@@ -17,6 +17,7 @@ const API_PREFIX = '/api/users';
  * @returns {void}
 */
 function usersRoutes(App) {
+  // TODO: add validation on this route
   App.get(`${API_PREFIX}/:id`, getOneUser);
   App.get(`${API_PREFIX}/:id/favorites`, getUserFavoriteProducts);
 }
