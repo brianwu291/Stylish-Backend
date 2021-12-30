@@ -4,6 +4,7 @@ import bodyParser from 'body-parser';
 
 import { getDBConnection, useDBWithName } from './modules/connection.js';
 import productsRoutes from './routes/productsRoutes.js';
+import usersRoutes from './routes/usersRoutes.js';
 
 getDBConnection()
   .then((connection) => {
@@ -21,6 +22,7 @@ app.use(cors({
 
 /* Routes */
 productsRoutes(app);
+usersRoutes(app);
 
 // app.get('/', (req, res, next) => {
 //   next();
