@@ -2,14 +2,11 @@ import express from 'express'
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-import { getDBConnection, useDBWithName } from './modules/connection.js';
+import { connectDatabase } from './modules/connection.js';
 import productsRoutes from './routes/productsRoutes.js';
 import usersRoutes from './routes/usersRoutes.js';
 
-getDBConnection()
-  .then((connection) => {
-    useDBWithName({ connection, dbName: `foodie_${process.env.NODE_ENV}` })
-  });
+connectDatabase();
 
 const app = express();
 

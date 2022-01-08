@@ -20,26 +20,26 @@ function isStringLengthValid(string) {
  * @typedef {Object {string, any}} Response
  * @typedef {Object {string, any}} Request
  * @typedef {Function {any => void}} NextFunction
- * @typedef {Object {string, any} | String} Send
+ * @typedef {Object {string, any}} Send
  *
  * @param {Request} request
  * @param {Response} response
  * @param {NextFunction} next
  * @returns {Send | NextFunction.return}
 */
-export function validateProductId(request, response, next) {
-  const productId = request.params.id;
+export function validateUserId(request, response, next) {
+  const userId = request.params.id;
 
   const isValidId = (
-    isString(productId)
-    && isStringLengthValid(productId)
-    && isPositiveInteger(productId)
+    isString(userId)
+    && isStringLengthValid(userId)
+    && isPositiveInteger(userId)
   )
 
   if (isValidId) return next();
   
   return response.status(400).send({
-    errorMessage: 'product id type issue.',
-    errorKey: 'setting-error-product-id',
+    errorMessage: 'user id type issue.',
+    errorKey: 'setting-error-user-id',
   });
 }

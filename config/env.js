@@ -5,6 +5,7 @@ config();
 export const env = {
   prod: {
     database: {
+      name: process.env.devDBName,
       host: process.env.prodDbHost,
       user: process.env.prodDbUser,
       password: process.env.prodDbPassword,
@@ -13,6 +14,7 @@ export const env = {
   },
   dev: {
     database: {
+      name: process.env.devDBName,
       host: process.env.devDbHost,
       user: process.env.devDbUser,
       password: process.env.devDbPassword,
@@ -21,6 +23,7 @@ export const env = {
   },
   test: {
     database: {
+      name: process.env.devDBName,
       host: process.env.testDbHost,
       user: process.env.testDbUser,
       password: process.env.testDbPassword,

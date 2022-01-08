@@ -1,7 +1,10 @@
 import {
   getOneUser,
   getUserFavoriteProducts,
+  createOneUser,
 } from '../controllers/usersController.js';
+
+import { validateUserId } from '../middleware/validateUserId.js';
 
 /**
  * @constant
@@ -18,8 +21,9 @@ const API_PREFIX = '/api/users';
 */
 function usersRoutes(App) {
   // TODO: add validation on this route
-  App.get(`${API_PREFIX}/:id`, getOneUser);
+  App.get(`${API_PREFIX}/:id`, validateUserId, getOneUser);
   App.get(`${API_PREFIX}/:id/favorites`, getUserFavoriteProducts);
+  App.post(`${API_PREFIX}/create`, createOneUser);
 }
 
 export default usersRoutes;

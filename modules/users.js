@@ -1,20 +1,53 @@
-import { getDBConnection } from './connection.js';
+import { DataTypes } from 'sequelize';
+import isNull from 'lodash/isNull.js';
+
+import { sequelize } from './connection.js';
+
+const User = sequelize.define('User', {
+  id: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  firstName: {
+    type: DataTypes.STRING(128),
+    defaultValue: '',
+    allowNull: false,
+    field: 'first_name',
+  },
+  lastName: {
+    type: DataTypes.STRING(128),
+    defaultValue: '',
+    allowNull: false,
+    field: 'last_name',
+  },
+  birthday: {
+    type: DataTypes.DATE,
+    defaultValue: null,
+    allowNull: true,
+  }
+}, {
+  tableName: 'Users',
+  timestamps: false, // so that won't select created_at ... field
+});
 
 /**
  * @param {number} id - user id (primary key)
- * @returns {Promise<mysql.RowDataPacket[] | mysql.QueryError>}
+ * @returns {Promise<User.toJSON | null | Error>}
 */
 export function getUserById(id) {
   return new Promise((resolve, reject) => {
-    getDBConnection()
-      .then(connection => {
-        connection.query(
-          `SELECT id, first_name AS firstName, last_name AS lastName, birthday FROM users WHERE id = "${id}"`,
-          (error, result, fields) => {
-            if (error) reject(error);
-            resolve({ result, fields });
-          },
-        );
+    User.findByPk(id)
+      .then(user => {
+        if (isNull(user)) {
+          resolve(null);
+        }
+        resolve(user.toJSON());
+      })
+      .catch(err => {
+        // save error log here
+        reject(err)
       });
   });
 }
@@ -23,21 +56,16 @@ export function getUserById(id) {
  * @param {string} firstName - first name
  * @param {string} lastName - last name
  * @param {date} birthday - birthday data string
- * @returns {Promise<mysql.RowDataPacket[] | mysql.QueryError>}
+ * @returns {Promise<User.toJSON | Error>}
 */
-export function createOneNewUser({ firstName, lastName, birthday }) {
+export function createOneNewUser(userInfo) {
   return new Promise((resolve, reject) => {
-    getDBConnection()
-      .then(connection => {
-        connection.query(
-          `INSERT INTO users (first_name, last_name, birthday)
-          VALUES ("${firstName}", ${lastName}, ${birthday});`,
-          (error, result, fields) => {
-            if (error) reject(error);
-            resolve({ result, fields });
-          }
-        );
-      });
+    User.create(userInfo)
+    .then(user => resolve(user.toJSON()))
+    .catch(err => {
+      // save error log here
+      reject(err);
+    })
   });
 }
 

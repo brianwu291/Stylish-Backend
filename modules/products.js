@@ -1,4 +1,4 @@
-import { getDBConnection } from './connection.js';
+// import { getDBConnection } from './connection.js';
 
 /**
  * @param {string} id - product id (primary key)
