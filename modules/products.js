@@ -1,20 +1,54 @@
-// import { getDBConnection } from './connection.js';
+import { DataTypes } from 'sequelize';
+import isNull from 'lodash/isNull.js';
+
+import { sequelize } from './connection.js';
+
+const Product = sequelize.define('Product', {
+  id: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    autoIncrement: true,
+    primaryKey: true,
+    allowNull: false,
+  },
+  name: {
+    type: DataTypes.STRING(128),
+    allowNull: false,
+    field: 'name',
+  },
+  price: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    allowNull: false,
+    field: 'price',
+  },
+  categoryId: {
+    type: DataTypes.INTEGER.UNSIGNED,
+    defaultValue: null,
+    allowNull: true,
+    field: 'category_id',
+  }
+}, {
+  tableName: 'products',
+  timestamps: false, // so that won't select created_at ... field
+});
+
 
 /**
  * @param {string} id - product id (primary key)
- * @returns {Promise<mysql.RowDataPacket[] | mysql.QueryError>}
+ * @returns {Promise<Product.toJSON | null | Error>}
 */
 export function getProductById(id) {
   return new Promise((resolve, reject) => {
-    getDBConnection()
-      .then(connection => {
-        connection.query(
-          `SELECT id, name, price, category_id FROM products WHERE id = "${id}"`,
-          (error, result, fields) => {
-            if (error) reject(error);
-            resolve({ result, fields });
-          },
-        );
+    Product.findByPk(id)
+      .then(product => {
+        if (isNull(product)) {
+          resolve(null);
+        }
+        resolve(product.toJSON());
+      })
+      .catch(err => {
+        console.log('err', err);
+        // save error log here
+        reject(err)
       });
   });
 }

@@ -1,3 +1,5 @@
+import isNull from 'lodash/isNull.js';
+
 import {
   getProductById,
   createOneNewProduct,
@@ -17,16 +19,14 @@ export function getOneProduct(request, response) {
   const productId = parseInt(request.params.id, 10);
 
   return getProductById(productId)
-    .then(({ result }) => {
-      if (result.length === 0) {
+    .then((product) => {
+      if (isNull(product)) {
         return response.status(404).send({
           message: `Not found with id ${productId}.`
         });
       }
 
-      return response
-        .status(200)
-        .send(result[0]);
+      return response.status(200).send(product);
     })
     .catch(() => response.status(500).send('something went wrong'));
 }

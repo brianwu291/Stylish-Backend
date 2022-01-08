@@ -28,7 +28,7 @@ const User = sequelize.define('User', {
     allowNull: true,
   }
 }, {
-  tableName: 'Users',
+  tableName: 'users',
   timestamps: false, // so that won't select created_at ... field
 });
 
