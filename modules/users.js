@@ -53,9 +53,10 @@ export function getUserById(id) {
 }
 
 /**
- * @param {string} firstName - first name
- * @param {string} lastName - last name
- * @param {date} birthday - birthday data string
+ * @param {Object} userInfo - user information
+ * @param {string} userInfo.firstName - first name
+ * @param {string} userInfo.lastName - last name
+ * @param {string} userInfo.birthday - birthday data string
  * @returns {Promise<User.toJSON | Error>}
 */
 export function createOneNewUser(userInfo) {

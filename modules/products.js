@@ -54,23 +54,19 @@ export function getProductById(id) {
 }
 
 /**
- * @param {string} name - product name
- * @param {number} price - product price
- * @param {string} categoryId - product categoryId
- * @returns {Promise<mysql.RowDataPacket[] | mysql.QueryError>}
+ * @param {Object} productInfo - product information
+ * @param {string} productInfo.name - product name
+ * @param {string} productInfo.price - product price
+ * @param {string | null} productInfo.categoryId - product categoryId
+ * @returns {Promise<Product.toJSON | Error>}
 */
-export function createOneNewProduct({ name, price, categoryId }) {
+export function createOneNewProduct(productInfo) {
   return new Promise((resolve, reject) => {
-    getDBConnection()
-      .then(connection => {
-        connection.query(
-          `INSERT INTO products (name, price, category_id)
-          VALUES ("${name}", ${price}, ${categoryId});`,
-          (error, result, fields) => {
-            if (error) reject(error);
-            resolve({ result, fields });
-          }
-        );
-      });
+    Product.create(productInfo)
+    .then(product => resolve(product.toJSON()))
+    .catch(err => {
+      // save error log here
+      reject(err);
+    })
   });
 }
