@@ -2,9 +2,10 @@ import isNull from 'lodash/isNull.js';
 
 import {
   getUserById,
-  getUserFavoriteProductsById,
   createOneNewUser,
 } from '../modules/users.js';
+
+import { getUserFavoriteProductsById } from '../modules/favorites.js';
 
 
 /**

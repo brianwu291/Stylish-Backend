@@ -3,7 +3,7 @@ import isNull from 'lodash/isNull.js';
 
 import { sequelize } from './connection.js';
 
-const Product = sequelize.define('Product', {
+export const Product = sequelize.define('Product', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -30,7 +30,6 @@ const Product = sequelize.define('Product', {
   tableName: 'products',
   timestamps: false, // so that won't select created_at ... field
 });
-
 
 /**
  * @param {string} id - product id (primary key)

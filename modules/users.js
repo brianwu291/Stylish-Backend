@@ -3,7 +3,7 @@ import isNull from 'lodash/isNull.js';
 
 import { sequelize } from './connection.js';
 
-const User = sequelize.define('User', {
+export const User = sequelize.define('User', {
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
