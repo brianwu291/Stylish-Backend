@@ -48,31 +48,37 @@ Product.belongsToMany(User, {
   },
   foreignKey: 'id',
 });
-User.hasMany(Favorite, { foreignKey: 'userId' });
-Favorite.belongsTo(User, { foreignKey: 'id' });
-Product.hasMany(Favorite, { foreignKey: 'productId' });
-Favorite.belongsTo(Product, { foreignKey: 'id' });
 
+User.hasMany(Favorite, { foreignKey: 'userId' });
+Favorite.belongsTo(User, { foreignKey: 'userId' });
+Product.hasMany(Favorite, { foreignKey: 'productId' });
+Favorite.belongsTo(Product, { foreignKey: 'productId' });
+
+
+/**
+ * @param {number} id - user id (primary key)
+ * @returns {Promise<Favorite.toJSON[] | [] | Error>}
+*/
 export function getUserFavoriteProductsById(id) {
-  Favorite.findAll({
-    include: [
-      { model: Product },
-      { model: User, required: true },
-    ]
-  })
-  .then(res => {
-    console.log(
-      'res',
-      JSON.stringify(res.map(item => item.toJSON()))
-    );
-  })
-  .catch(err => {
-    // save error log here
-    console.log('err', err);
+  return new Promise((resolve, reject) => {
+    Favorite.findAll({
+      where: {
+        userId: id,
+      },
+      include: [
+        { model: Product, required: true },
+        { model: User, required: true },
+      ]
+    })
+    .then(favorites => {
+      const favoriteProducts = favorites
+        .map(favorite => favorite.toJSON())
+        .map(({ Product }) => Product);
+      resolve(favoriteProducts);
+    })
+    .catch(err => {
+      // save error log here
+      reject(err);
+    });
   });
 }
-
-setTimeout(() => {
-  getUserFavoriteProductsById(1);
-}, 2000);
-

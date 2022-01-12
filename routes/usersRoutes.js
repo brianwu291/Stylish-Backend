@@ -22,7 +22,7 @@ const API_PREFIX = '/api/users';
 function usersRoutes(App) {
   // TODO: add validation on this route
   App.get(`${API_PREFIX}/:id`, validateUserId, getOneUser);
-  App.get(`${API_PREFIX}/:id/favorites`, getUserFavoriteProducts);
+  App.get(`${API_PREFIX}/:id/favorites`, validateUserId, getUserFavoriteProducts);
   App.post(`${API_PREFIX}/create`, createOneUser);
 }
 

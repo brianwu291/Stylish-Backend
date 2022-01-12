@@ -62,8 +62,8 @@ export function createOneUser(request, response) {
 export function getUserFavoriteProducts(request, response) {
   const userId = parseInt(request.params.id, 10);
 
-  return getUserFavoriteProductsById({ userId })
-    .then(({ result }) => {
+  return getUserFavoriteProductsById(userId)
+    .then((result) => {
       if (result.length === 0) {
         return response.status(404).send({
           message: `Not found with id ${userId}.`
