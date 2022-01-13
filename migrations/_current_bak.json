@@ -1,0 +1,76 @@
+{
+    "tables": {
+        "products": {
+            "tableName": "products",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                },
+                "name": {
+                    "allowNull": false,
+                    "field": "name",
+                    "seqType": "Sequelize.STRING(128)"
+                },
+                "price": {
+                    "allowNull": false,
+                    "field": "price",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                },
+                "categoryId": {
+                    "defaultValue": {
+                        "value": null
+                    },
+                    "allowNull": true,
+                    "field": "category_id",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                }
+            },
+            "indexes": []
+        },
+        "users": {
+            "tableName": "users",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false,
+                    "field": "id",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                },
+                "firstName": {
+                    "defaultValue": {
+                        "value": ""
+                    },
+                    "allowNull": false,
+                    "field": "first_name",
+                    "seqType": "Sequelize.STRING(128)"
+                },
+                "lastName": {
+                    "defaultValue": {
+                        "value": ""
+                    },
+                    "allowNull": false,
+                    "field": "last_name",
+                    "seqType": "Sequelize.STRING(128)"
+                },
+                "birthday": {
+                    "defaultValue": {
+                        "value": null
+                    },
+                    "allowNull": true,
+                    "field": "birthday",
+                    "seqType": "Sequelize.DATE"
+                }
+            },
+            "indexes": []
+        }
+    },
+    "path": "/Users/brianwu291/Desktop/mysql/migrations/_current.json",
+    "backupPath": "/Users/brianwu291/Desktop/mysql/migrations/_current_bak.json",
+    "exists": false,
+    "revision": 1
+}

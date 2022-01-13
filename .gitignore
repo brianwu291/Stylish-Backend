@@ -3,3 +3,5 @@
 .key
 
 .env
+
+/config/config.json

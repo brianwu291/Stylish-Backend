@@ -1,17 +1,17 @@
-import isString from 'lodash/isString.js';
+const isString = require("lodash/isString");
 
-import isPositiveInteger from '../utils/isPositiveInteger.js';
+const isPositiveInteger = require("../utils/isPositiveInteger");
 
 /**
  * @constant
  * @type {number}
-*/
+ */
 const maxStringLength = 17;
 
 /**
  * @param {String} string
  * @returns {Bool}
-*/
+ */
 function isStringLengthValid(string) {
   return string.length > 0 && string.length <= maxStringLength;
 }
@@ -26,20 +26,21 @@ function isStringLengthValid(string) {
  * @param {Response} response
  * @param {NextFunction} next
  * @returns {Send | NextFunction.return}
-*/
-export function validateUserId(request, response, next) {
+ */
+function validateUserId(request, response, next) {
   const userId = request.params.id;
 
-  const isValidId = (
-    isString(userId)
-    && isStringLengthValid(userId)
-    && isPositiveInteger(userId)
-  )
+  const isValidId =
+    isString(userId) &&
+    isStringLengthValid(userId) &&
+    isPositiveInteger(userId);
 
   if (isValidId) return next();
-  
+
   return response.status(400).send({
-    errorMessage: 'user id type issue.',
-    errorKey: 'setting-error-user-id',
+    errorMessage: "user id type issue.",
+    errorKey: "setting-error-user-id",
   });
 }
+
+module.exports = validateUserId;

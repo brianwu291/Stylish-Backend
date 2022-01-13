@@ -1,29 +1,33 @@
-import {
+const {
   getOneUser,
   getUserFavoriteProducts,
   createOneUser,
-} from '../controllers/usersController.js';
+} = require("../controllers/usersController");
 
-import { validateUserId } from '../middleware/validateUserId.js';
+const validateUserId = require("../middleware/validateUserId");
 
 /**
  * @constant
  * @type {string}
-*/
-const API_PREFIX = '/api/users';
+ */
+const API_PREFIX = "/api/users";
 
 /**
  * @typedef {Function <(path: string, validateProductId: function, getOneProduct: function) => (returns: any)>} get
  * @typedef {Object <string, get>} Application
- * 
+ *
  * @param {Application} App
  * @returns {void}
-*/
+ */
 function usersRoutes(App) {
   // TODO: add validation on this route
   App.get(`${API_PREFIX}/:id`, validateUserId, getOneUser);
-  App.get(`${API_PREFIX}/:id/favorites`, validateUserId, getUserFavoriteProducts);
+  App.get(
+    `${API_PREFIX}/:id/favorites`,
+    validateUserId,
+    getUserFavoriteProducts
+  );
   App.post(`${API_PREFIX}/create`, createOneUser);
 }
 
-export default usersRoutes;
+module.exports = usersRoutes;

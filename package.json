@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "type": "module",
   "engines": {
     "node": ">=16.13.0"
   },
   "scripts": {
-    "start-dev": "export NODE_ENV=dev && nodemon index.js",
-    "start-test": "export NODE_ENV=test && nodemon index.js"
+    "start-dev": "export NODE_ENV=development && nodemon index.js",
+    "start-test": "export NODE_ENV=test && nodemon index.js",
+    "create-new-migrate": "sh ./scripts/create_new_migration_file.sh",
+    "migrate": "npx sequelize-cli db:migrate"
   },
   "author": "BrianWu",
   "license": "ISC",
@@ -22,5 +23,9 @@
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.2",
     "sequelize": "^6.12.5"
+  },
+  "devDependencies": {
+    "sequelize-cli": "^6.3.0",
+    "sequelize-mig": "^3.1.3"
   }
 }

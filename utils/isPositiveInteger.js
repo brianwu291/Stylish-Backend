@@ -1,10 +1,10 @@
 /**
  * @param {String} number
  * @returns {Bool}
-*/
+ */
 function isPositiveInteger(number) {
   const convertedNumber = parseInt(number, 10);
-  
+
   const isNaN = Number.isNaN(convertedNumber);
   const isSafeInteger = Number.isSafeInteger(convertedNumber);
   const isNegativeOrZero = convertedNumber <= 0;
@@ -14,4 +14,4 @@ function isPositiveInteger(number) {
   return true;
 }
 
-export default isPositiveInteger;
+module.exports = isPositiveInteger;
