@@ -1,3 +1,19 @@
+## Prepare:
+
+
+- Install: yarn, npm, npx, node.
+- Running mysql server.
+- create .env file for db connection. (Can reference `.envExample`).
+
+Once set up .env, run: `yarn migrate-dev` for db migration.
+
+After running migration, you can run `yarn start-dev`.
+
+
+## Learning Notes
+
+<!-- 筆記 -->
+
 <!-- 啟動 mysql with command line -->
 cd /Library/LaunchDaemons
 sudo launchctl load -F com.oracle.oss.mysql.mysqld.plist
