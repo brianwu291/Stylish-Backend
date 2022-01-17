@@ -12,7 +12,7 @@ const Sequelize = require("sequelize");
 const info = {
   revision: 1,
   name: "newMigration",
-  created: "2022-01-17T08:16:43.633Z",
+  created: "2022-01-17T08:29:49.837Z",
   comment: "",
 };
 
