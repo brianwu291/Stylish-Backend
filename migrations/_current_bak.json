@@ -1,5 +1,47 @@
 {
     "tables": {
+        "favorites": {
+            "tableName": "favorites",
+            "schema": {
+                "id": {
+                    "autoIncrement": true,
+                    "primaryKey": true,
+                    "allowNull": false,
+                    "field": "id",
+                    "unique": "favorites_id_id_unique",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                },
+                "productId": {
+                    "allowNull": false,
+                    "field": "product_id",
+                    "references": {
+                        "model": "products",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                },
+                "userId": {
+                    "allowNull": false,
+                    "field": "user_id",
+                    "references": {
+                        "model": "users",
+                        "key": "id"
+                    },
+                    "onDelete": "CASCADE",
+                    "onUpdate": "CASCADE",
+                    "seqType": "Sequelize.INTEGER.UNSIGNED"
+                }
+            },
+            "indexes": []
+        },
         "products": {
             "tableName": "products",
             "schema": {
@@ -71,6 +113,6 @@
     },
     "path": "/Users/brianwu291/Desktop/mysql/migrations/_current.json",
     "backupPath": "/Users/brianwu291/Desktop/mysql/migrations/_current_bak.json",
-    "exists": false,
-    "revision": 1
+    "exists": true,
+    "revision": 2
 }

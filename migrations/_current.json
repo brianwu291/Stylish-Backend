@@ -114,5 +114,5 @@
     "path": "/Users/brianwu291/Desktop/mysql/migrations/_current.json",
     "backupPath": "/Users/brianwu291/Desktop/mysql/migrations/_current_bak.json",
     "exists": true,
-    "revision": 2
+    "revision": 3
 }

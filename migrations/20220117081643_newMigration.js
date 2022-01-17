@@ -5,13 +5,14 @@ const Sequelize = require("sequelize");
  *
  * createTable() => "products", deps: []
  * createTable() => "users", deps: []
+ * createTable() => "favorites", deps: [users, products, users]
  *
  */
 
 const info = {
   revision: 1,
   name: "newMigration",
-  created: "2022-01-13T16:26:04.929Z",
+  created: "2022-01-17T08:16:43.633Z",
   comment: "",
 };
 
@@ -78,9 +79,49 @@ const migrationCommands = (transaction) => [
       { transaction },
     ],
   },
+  {
+    fn: "createTable",
+    params: [
+      "favorites",
+      {
+        id: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
+          references: { model: "users", key: "id" },
+          unique: "favorites_id_id_unique",
+          field: "id",
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        productId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
+          references: { model: "products", key: "id" },
+          field: "product_id",
+          allowNull: false,
+        },
+        userId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
+          references: { model: "users", key: "id" },
+          field: "user_id",
+          allowNull: false,
+        },
+      },
+      { transaction },
+    ],
+  },
 ];
 
 const rollbackCommands = (transaction) => [
+  {
+    fn: "dropTable",
+    params: ["favorites", { transaction }],
+  },
   {
     fn: "dropTable",
     params: ["products", { transaction }],
