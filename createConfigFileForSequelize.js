@@ -2,10 +2,36 @@ const fs = require('fs');
 
 const { env } = require('./env');
 
-fs.unlink('./config/config.json', function (err) {
-  if (err) throw err;
-  console.log('config file deleted!');
-});
+function resetDBConfigFolder() {
+  return new Promise((resolve, reject) => {
+    fs.stat('./config/config.json', function(readError) {
+      if(readError === null) {
+        fs.unlink('./config/config.json', function (deleteError) {
+          if (deleteError) {
+            reject(deleteError);
+            throw deleteError;
+          }
+          console.log('config file deleted!');
+          resolve(true);
+        });
+      } else {
+        const isFolderExist = fs.existsSync('./config');
+        if (isFolderExist) {
+          resolve(true);
+        } else {
+          fs.mkdir('./config', function (createDirError) {
+            if (createDirError) {
+              reject(createDirError);
+              throw createDirError;
+            }
+            console.log('createDirError success!');
+            resolve(true);
+          })
+        }
+      }
+    });
+  })
+}
 
 const {
   development,
@@ -37,7 +63,12 @@ const configData = {
   }
 };
 
-fs.appendFile('./config/config.json', JSON.stringify(configData), function (err) {
-  if (err) throw err;
-  console.log('config file saved successfully!');
-});
+function resetDBConfigFile() {
+  fs.appendFile('./config/config.json', JSON.stringify(configData), function (err) {
+    if (err) throw err;
+    console.log('config file saved successfully!');
+  });
+}
+
+
+resetDBConfigFolder().then(resetDBConfigFile);
