@@ -14,7 +14,7 @@
     "start-dev": "export NODE_ENV=development && yarn run-server",
     "start-test": "export NODE_ENV=test && yarn run-server",
     "prestart": "yarn migrate-test",
-    "start": "yarn run-server",
+    "start": "export NODE_ENV=test && yarn run-server",
     "create-new-migrate": "sh ./scripts/create_new_migration_file.sh",
     "migrate-dev": "yarn prestart-dev && npx sequelize-cli db:migrate --env development",
     "migrate-test": "yarn prestart-test && npx sequelize-cli db:migrate --env test"
