@@ -9,3 +9,5 @@
 /migrations/_current.json
 
 .elasticbeanstalk/
+
+/.ebextensions/*
