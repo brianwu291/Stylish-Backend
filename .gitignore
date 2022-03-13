@@ -7,3 +7,5 @@
 /config/config.json
 /migrations/_current_bak.json
 /migrations/_current.json
+
+/.elasticbeanstalk
