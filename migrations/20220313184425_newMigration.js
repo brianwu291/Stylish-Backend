@@ -5,14 +5,14 @@ const Sequelize = require("sequelize");
  *
  * createTable() => "products", deps: []
  * createTable() => "users", deps: []
- * createTable() => "favorites", deps: [users, products, users]
+ * createTable() => "favorites", deps: [products, users]
  *
  */
 
 const info = {
   revision: 1,
   name: "newMigration",
-  created: "2022-01-17T08:29:49.837Z",
+  created: "2022-03-13T18:44:25.623Z",
   comment: "",
 };
 
@@ -86,10 +86,6 @@ const migrationCommands = (transaction) => [
       {
         id: {
           type: Sequelize.INTEGER.UNSIGNED,
-          onUpdate: "CASCADE",
-          onDelete: "CASCADE",
-          references: { model: "users", key: "id" },
-          unique: "favorites_id_id_unique",
           field: "id",
           allowNull: false,
           primaryKey: true,

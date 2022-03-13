@@ -43,19 +43,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
   
-  User.belongsToMany(Product, {
-    through: {
-      model: Favorite,
-    },
-    foreignKey: "id",
-  });
-  Product.belongsToMany(User, {
-    through: {
-      model: Favorite,
-    },
-    foreignKey: "id",
-  });
-  
   User.hasMany(Favorite, { foreignKey: "userId" });
   Favorite.belongsTo(User, { foreignKey: "userId" });
   Product.hasMany(Favorite, { foreignKey: "productId" });
