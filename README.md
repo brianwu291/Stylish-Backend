@@ -10,6 +10,13 @@ Once set up .env, run: `yarn migrate-dev` for db migration.
 After running migration, you can run `yarn start-dev`.
 
 
+## Testing Environment:
+
+http://foodietest-env.eba-dyu447kf.ap-northeast-1.elasticbeanstalk.com/
+
+- Use Elastic Beanstalk to deploy.
+- AWS relation database with mysql 5.7.37
+
 ## Learning Notes
 
 <!-- 筆記 -->
