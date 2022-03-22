@@ -5,17 +5,17 @@
 - Running mysql server.
 - create .env file for db connection. (Can reference `.envExample`).
 
-Once set up .env, run: `yarn migrate-dev` for db migration.
+Once set up .env, run: `yarn migrate::dev` for db migration.
 
-After running migration, you can run `yarn start-dev`.
+After running migration, you can run `yarn start`.
 
 
-## Testing Environment:
 
-http://foodietest-env.eba-dyu447kf.ap-northeast-1.elasticbeanstalk.com/
+## Deploy Environment:
 
-- Use Elastic Beanstalk to deploy.
-- AWS relation database with mysql 5.7.37
+- AWS Elastic Compute.
+- AWS relation database with mysql 5.7.37.
+- Reverse proxy with nginx. (`sudo service nginx start`)
 
 ## Learning Notes
 

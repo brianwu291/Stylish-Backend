@@ -3,6 +3,7 @@ const { config } = require("dotenv");
 config();
 
 const env = {
+  PORT: process.env.PORT,
   production: {
     database: {
       host: process.env.RDS_HOSTNAME,

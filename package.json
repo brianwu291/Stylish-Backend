@@ -8,10 +8,11 @@
   },
   "scripts": {
     "set-db-config": "node createConfigFileForSequelize.js",
-    "prestart-dev": "export NODE_ENV=development && yarn set-db-config",
+    "prestart": "yarn set-db-config",
     "start": "nodemon app.js",
     "create-new-migrate": "sh ./scripts/create_new_migration_file.sh",
-    "migrate-dev": "yarn prestart-dev && npx sequelize-cli db:migrate --env development"
+    "migrate::dev": "npx sequelize-cli db:migrate --env development",
+    "migrate::prod": "npx sequelize-cli db:migrate --env production"
   },
   "author": "BrianWu",
   "license": "ISC",
