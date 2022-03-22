@@ -9,8 +9,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  deploy:
+    name: Push to EC2 Instance
     runs-on: ubuntu-latest
 
     if: github.ref == 'refs/heads/master'
@@ -20,18 +20,14 @@ jobs:
         node-version: [16.x]
 
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout the code
+        uses: actions/checkout@v1
 
-      # - run: npm ci
-#       - run: yarn run build
-#       - run: npm run test
-
-      - name: rsync deployments
-        uses: burnett01/rsync-deployments@5.1
-        with:
-          switches: -avzr --delete
-          path: ./*
-          remote_path: /foodie/
-          remote_host: "${{ secrets.EC2_HOST }}"
-          remote_user: "${{ secrets.EC2_USER_ROLE }}"
-          remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
+      - name: Deploy to my EC2 instance
+        uses: easingthemes/ssh-deploy@v2.1.5
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: "${{ secrets.EC2_HOST }}"
+          REMOTE_USER: "${{ secrets.EC2_USER_ROLE }}"
+          TARGET: "/home/ec2-user/foodie"
