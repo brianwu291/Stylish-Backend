@@ -2,11 +2,11 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 
-const { connectDatabase } = require("./models/index");
-const productsRoutes = require("./routes/productsRoutes");
-const usersRoutes = require("./routes/usersRoutes");
+// const { connectDatabase } = require("./models/index");
+// const productsRoutes = require("./routes/productsRoutes");
+// const usersRoutes = require("./routes/usersRoutes");
 
-connectDatabase();
+// connectDatabase();
 
 const app = express();
 
@@ -20,8 +20,8 @@ app.use(
 );
 
 /* Routes */
-productsRoutes(app);
-usersRoutes(app);
+// productsRoutes(app);
+// usersRoutes(app);
 
 const PORT = process.env.PORT;
 app.listen(PORT, () => {
