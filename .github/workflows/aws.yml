@@ -32,6 +32,6 @@ jobs:
           switches: -avzr --delete
           path: ./*
           remote_path: /foodie/
-          remote_host: "{{ secrets.EC2_HOST }}"
-          remote_user: "{{ secrets.EC2_USER_ROLE }}"
+          remote_host: "${{ secrets.EC2_HOST }}"
+          remote_user: "${{ secrets.EC2_USER_ROLE }}"
           remote_key: "${{ secrets.SSH_PRIVATE_KEY }}"
