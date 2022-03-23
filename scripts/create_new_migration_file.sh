@@ -1,10 +1,4 @@
-while getopts ":m:" option
-do
-  case "${option}" in
-    newMigration ) m=${OPTARG}
-      ;;
-  esac
-done
+getopts ":m:" option
 
-sequelize-mig migration:make \
-    -n newMigration
+sequelize-mig migration:add \
+      -n ${OPTARG}
