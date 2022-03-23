@@ -1,6 +1,5 @@
 const {
   getOneProduct,
-  createOneProduct,
 } = require("../controllers/productsController");
 
 const validateProductId = require("../middleware/validateProductId");
@@ -19,9 +18,11 @@ const API_PREFIX = "/api/products";
  * @returns {void}
  */
 function productsRoutes(App) {
+  // App.get(`${API_PREFIX}/all`, getOneProduct);
+
   App.get(`${API_PREFIX}/:id`, validateProductId, getOneProduct);
 
-  App.post(`${API_PREFIX}/create`, createOneProduct);
+  // App.post(`${API_PREFIX}/create`, createOneProduct);
 }
 
 module.exports = productsRoutes;

@@ -1,3 +1,5 @@
+const { PROVIDERS } = require("../constants");
+
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
     "User",
@@ -8,27 +10,51 @@ module.exports = (sequelize, DataTypes) => {
         primaryKey: true,
         allowNull: false,
       },
-      firstName: {
-        type: DataTypes.STRING(128),
-        defaultValue: "",
+      createdAt: {
+        type: DataTypes.DATE(6),
+        defaultValue: new Date(),
         allowNull: false,
-        field: "first_name",
+        field: "created_at",
       },
-      lastName: {
-        type: DataTypes.STRING(128),
-        defaultValue: "",
+      updatedAt: {
+        type: DataTypes.DATE(6),
+        defaultValue: new Date(),
         allowNull: false,
-        field: "last_name",
+        field: "updated_at",
+      },
+      provider: {
+        type: DataTypes.ENUM(Object.values(PROVIDERS)),
+        allowNull: false,
+        field: "provider",
+      },
+      name: {
+        type: DataTypes.STRING(255),
+        allowNull: false,
+        field: "name",
+      },
+      email: {
+        type: DataTypes.STRING(191),
+        allowNull: false,
+        field: "email",
+      },
+      password: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+        field: "password",
       },
       birthday: {
         type: DataTypes.DATE,
         defaultValue: null,
         allowNull: true,
       },
+      profilePictureId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: true,
+        field: "profile_picture_id",
+      },
     },
     {
       tableName: "users",
-      timestamps: false, // so that won't select created_at ... field
     }
   );
 

@@ -4,11 +4,11 @@ const bodyParser = require("body-parser");
 
 const { env } = require("./env");
 
-// const { connectDatabase } = require("./models/index");
-// const productsRoutes = require("./routes/productsRoutes");
-// const usersRoutes = require("./routes/usersRoutes");
+const { connectDatabase } = require("./models/index");
+const productsRoutes = require("./routes/productsRoutes");
+const usersRoutes = require("./routes/usersRoutes");
 
-// connectDatabase();
+connectDatabase();
 
 const app = express();
 
@@ -22,8 +22,8 @@ app.use(
 );
 
 /* Routes */
-// productsRoutes(app);
-// usersRoutes(app);
+productsRoutes(app);
+usersRoutes(app);
 
 app.listen(env.PORT, () => {
   console.log("Listening at " + env.PORT);
