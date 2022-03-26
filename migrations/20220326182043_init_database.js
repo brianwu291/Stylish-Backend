@@ -11,8 +11,8 @@ const Sequelize = require("sequelize");
 
 const info = {
   revision: 1,
-  name: "newMigration",
-  created: "2022-03-23T10:21:47.392Z",
+  name: "init_database",
+  created: "2022-03-26T18:20:43.156Z",
   comment: "",
 };
 
@@ -32,14 +32,12 @@ const migrationCommands = (transaction) => [
         createdAt: {
           type: Sequelize.DATE,
           field: "created_at",
-          allowNull: false,
-          defaultValue: Sequelize.Date,
+          defaultValue: Sequelize.fn("now"),
         },
         updatedAt: {
           type: Sequelize.DATE,
           field: "updated_at",
-          allowNull: false,
-          defaultValue: Sequelize.Date,
+          defaultValue: Sequelize.fn("now"),
         },
         category: {
           type: Sequelize.STRING(128),
@@ -104,13 +102,13 @@ const migrationCommands = (transaction) => [
           type: Sequelize.DATE,
           field: "created_at",
           allowNull: false,
-          defaultValue: Sequelize.Date,
+          defaultValue: Sequelize.fn("now"),
         },
         updatedAt: {
           type: Sequelize.DATE,
           field: "updated_at",
           allowNull: false,
-          defaultValue: Sequelize.Date,
+          defaultValue: Sequelize.fn("now"),
         },
         provider: {
           type: Sequelize.ENUM("google", "facebook", "stylish"),
@@ -159,13 +157,13 @@ const migrationCommands = (transaction) => [
           type: Sequelize.DATE,
           field: "created_at",
           allowNull: false,
-          defaultValue: Sequelize.Date,
+          defaultValue: Sequelize.fn("now"),
         },
         updatedAt: {
           type: Sequelize.DATE,
           field: "updated_at",
           allowNull: false,
-          defaultValue: Sequelize.Date,
+          defaultValue: Sequelize.fn("now"),
         },
         safetyStock: {
           type: Sequelize.DECIMAL(18, 2),

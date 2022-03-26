@@ -37,9 +37,18 @@ function getOneProduct(request, response) {
 
 
 function getAllProducts(request, response) {
-  
+  return Products.findAll()
+    .then((products) => (
+      response.status(200).send({ data: products })
+    ))
+    .catch((err) => {
+      console.log("err", err);
+      // save error log here
+      return response.status(500).send("something went wrong")
+    });
 }
 
 module.exports = {
   getOneProduct,
+  getAllProducts,
 };

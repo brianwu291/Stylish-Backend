@@ -1,3 +1,5 @@
+const { Sequelize } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   const Products = sequelize.define(
     "Product",
@@ -10,14 +12,12 @@ module.exports = (sequelize, DataTypes) => {
       },
       createdAt: {
         type: DataTypes.DATE(6),
-        defaultValue: new Date(),
-        allowNull: false,
+        defaultValue: Sequelize.fn('now'),
         field: "created_at",
       },
       updatedAt: {
         type: DataTypes.DATE(6),
-        defaultValue: new Date(),
-        allowNull: false,
+        defaultValue: Sequelize.fn('now'),
         field: "updated_at",
       },
       category: {
