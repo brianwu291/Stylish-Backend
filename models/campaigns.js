@@ -23,6 +23,7 @@ module.exports = (sequelize, DataTypes) => {
       title: {
         type: DataTypes.STRING(128),
         allowNull: false,
+        unique: true,
         field: "title",
       },
       mainImageId: {
