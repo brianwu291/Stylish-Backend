@@ -3,20 +3,59 @@ const Sequelize = require("sequelize");
 /**
  * Actions summary:
  *
+ * createTable() => "campaigns", deps: []
  * createTable() => "products", deps: []
  * createTable() => "users", deps: []
+ * createTable() => "campaign_products", deps: [campaigns, products]
+ * createTable() => "images", deps: [users, products, campaigns]
  * createTable() => "inventories", deps: [products]
  *
  */
 
 const info = {
   revision: 1,
-  name: "init_database",
-  created: "2022-03-26T18:20:43.156Z",
+  name: "test",
+  created: "2022-03-27T15:49:36.112Z",
   comment: "",
 };
 
 const migrationCommands = (transaction) => [
+  {
+    fn: "createTable",
+    params: [
+      "campaigns",
+      {
+        id: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          field: "id",
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        createdAt: {
+          type: Sequelize.DATE,
+          field: "created_at",
+          defaultValue: Sequelize.fn("now"),
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+          field: "updated_at",
+          defaultValue: Sequelize.fn("now"),
+        },
+        title: {
+          type: Sequelize.STRING(128),
+          field: "title",
+          allowNull: false,
+        },
+        mainImageId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          field: "main_image_id",
+          allowNull: true,
+        },
+      },
+      { transaction },
+    ],
+  },
   {
     fn: "createTable",
     params: [
@@ -77,9 +116,9 @@ const migrationCommands = (transaction) => [
           field: "story",
           allowNull: false,
         },
-        mainPictureId: {
+        mainImageId: {
           type: Sequelize.INTEGER.UNSIGNED,
-          field: "main_pictureId_id",
+          field: "main_image_id",
           allowNull: true,
         },
       },
@@ -132,9 +171,96 @@ const migrationCommands = (transaction) => [
           allowNull: true,
           defaultValue: null,
         },
-        profilePictureId: {
+        profileImageId: {
           type: Sequelize.INTEGER.UNSIGNED,
-          field: "profile_picture_id",
+          field: "profile_image_id",
+          allowNull: true,
+        },
+      },
+      { transaction },
+    ],
+  },
+  {
+    fn: "createTable",
+    params: [
+      "campaign_products",
+      {
+        id: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          field: "id",
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        createdAt: {
+          type: Sequelize.DATE,
+          field: "created_at",
+          defaultValue: Sequelize.fn("now"),
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+          field: "updated_at",
+          defaultValue: Sequelize.fn("now"),
+        },
+        campaignId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
+          references: { model: "campaigns", key: "id" },
+          field: "campaign_id",
+          allowNull: false,
+        },
+        productId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          onUpdate: "CASCADE",
+          onDelete: "CASCADE",
+          references: { model: "products", key: "id" },
+          field: "product_id",
+          allowNull: false,
+        },
+      },
+      { transaction },
+    ],
+  },
+  {
+    fn: "createTable",
+    params: [
+      "images",
+      {
+        id: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          field: "id",
+          allowNull: false,
+          primaryKey: true,
+          autoIncrement: true,
+        },
+        createdAt: {
+          type: Sequelize.DATE,
+          field: "created_at",
+          defaultValue: Sequelize.fn("now"),
+        },
+        updatedAt: {
+          type: Sequelize.DATE,
+          field: "updated_at",
+          defaultValue: Sequelize.fn("now"),
+        },
+        url: { type: Sequelize.STRING(128), field: "url", allowNull: false },
+        userId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          references: { model: "users", key: "id" },
+          field: "user_id",
+          allowNull: true,
+        },
+        productId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          references: { model: "products", key: "id" },
+          field: "product_id",
+          allowNull: true,
+        },
+        campaignId: {
+          type: Sequelize.INTEGER.UNSIGNED,
+          references: { model: "campaigns", key: "id" },
+          field: "campaign_id",
           allowNull: true,
         },
       },
@@ -196,6 +322,18 @@ const migrationCommands = (transaction) => [
 ];
 
 const rollbackCommands = (transaction) => [
+  {
+    fn: "dropTable",
+    params: ["campaign_products", { transaction }],
+  },
+  {
+    fn: "dropTable",
+    params: ["campaigns", { transaction }],
+  },
+  {
+    fn: "dropTable",
+    params: ["images", { transaction }],
+  },
   {
     fn: "dropTable",
     params: ["inventories", { transaction }],

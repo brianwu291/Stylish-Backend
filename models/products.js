@@ -2,7 +2,7 @@ const { Sequelize } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
   const Products = sequelize.define(
-    "Product",
+    "Products",
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
@@ -66,10 +66,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         field: "story",
       },
-      mainPictureId: {
+      mainImageId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
-        field: "main_pictureId_id",
+        field: "main_image_id",
       },
     },
     {

@@ -47,11 +47,6 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: false,
         field: "product_id",
-        references: {
-          model: Products,
-          key: "id",
-          deferrable: Sequelize.Deferrable.INITIALLY_IMMEDIATE,
-        },
       },
     },
     {
