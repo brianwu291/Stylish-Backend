@@ -1,11 +1,8 @@
 const { Sequelize } = require('sequelize');
 
-const getProductsModal = require("./products");
-const getCampaignsModal = require("./campaigns");
-
 module.exports = (sequelize, DataTypes) => {
-  const Campaigns = getCampaignsModal(sequelize, DataTypes);
-  const Products = getProductsModal(sequelize, DataTypes);
+  const Campaigns = sequelize.models.Campaigns;
+  const Products = sequelize.models.Products;
 
   const CampaignProducts = sequelize.define(
     "CampaignProducts",

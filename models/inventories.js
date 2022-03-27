@@ -1,10 +1,9 @@
 const { Sequelize } = require("sequelize");
 
-const getProductsModal = require("./products");
 const { SIZES } = require("../constants");
 
 module.exports = (sequelize, DataTypes) => {
-  const Products = getProductsModal(sequelize, DataTypes);
+  const Products = sequelize.models.Products;
 
   const Inventories = sequelize.define(
     "Inventories",
