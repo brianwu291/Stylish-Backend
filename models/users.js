@@ -4,7 +4,7 @@ const { PROVIDERS } = require("../constants");
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define(
-    "User",
+    "Users",
     {
       id: {
         type: DataTypes.INTEGER.UNSIGNED,
