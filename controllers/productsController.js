@@ -2,7 +2,7 @@ const isNull = require("lodash/isNull");
 
 const { sequelize } = require("../models");
 
-const getSizesInVariants = require("../utils/getSizesInVariants")
+const mapProductValuesWithKeys = require("../utils/mapProductValuesWithKeys")
 
 const { Products, Inventories, Images } = sequelize.models;
 
@@ -40,18 +40,9 @@ function getOneProduct(request, response) {
       if (isNull(product)) {
         return response.status(404).send(`Not found with id ${productId}.`);
       }
-      return product.toJSON();
-    })
-    .then((product) => {
-      const mappedProduct = {
-        ...product,
-        sizes: getSizesInVariants(product.Inventories),
-        images: product.Images,
-        variants: product.Inventories,
-      };
-      delete mappedProduct.Images;
-      delete mappedProduct.Inventories;
-      return response.status(200).send(mappedProduct);
+      return response.status(200).send(
+        mapProductValuesWithKeys(product.toJSON())
+      )
     })
     .catch((err) => {
       console.log("err", err);
@@ -63,19 +54,11 @@ function getOneProduct(request, response) {
 function getAllProducts(request, response) {
   return Products.findAll(queryProductOption)
     .then((allProducts) =>
-      allProducts.map(({ dataValues }) => {
-        const mappedProduct = {
-          ...dataValues,
-          sizes: getSizesInVariants(dataValues.Inventories),
-          images: dataValues.Images,
-          variants: dataValues.Inventories,
-        };
-        delete mappedProduct.Images;
-        delete mappedProduct.Inventories;
-        return mappedProduct;
-      })
+      allProducts.map(({ dataValues }) => (
+        mapProductValuesWithKeys(dataValues)
+      ))
     )
-    .then((allProducts) => response.status(200).send({ data: allProducts }))
+    .then((allMappedProducts) => response.status(200).send({ data: allMappedProducts }))
     .catch((error) => {
       console.log("error", error);
       return response.status(500).send("something went wrong");

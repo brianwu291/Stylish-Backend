@@ -7,6 +7,7 @@ const { env } = require("./env");
 const { connectDatabase } = require("./models/index");
 const productsRoutes = require("./routes/productsRoutes");
 const usersRoutes = require("./routes/usersRoutes");
+const campaignsRoutes = require("./routes/campaignsRoutes");
 
 connectDatabase();
 
@@ -24,6 +25,7 @@ app.use(
 /* Routes */
 productsRoutes(app);
 usersRoutes(app);
+campaignsRoutes(app);
 
 app.listen(env.PORT, () => {
   console.log("Listening at " + env.PORT);
