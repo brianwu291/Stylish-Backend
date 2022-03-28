@@ -2,11 +2,26 @@ const isNull = require("lodash/isNull");
 
 const { sequelize } = require("../models");
 
-const mapProductValuesWithKeys = require("../utils/mapProductValuesWithKeys")
+const mapProductValues = require("../utils/mapProductValues")
 
 const { queryProductOption } = require("../constants/queryOptions");
 
 const { Products } = sequelize.models;
+
+
+function handleGetProductResponse({
+  productId,
+  product = {},
+  response = {},
+}) {
+  if (isNull(product)) {
+    return response.status(404).send(`Not found with id ${productId}.`);
+  }
+
+  return response.status(200).send(
+    mapProductValues(product.toJSON())
+  )
+}
 
 /**
  * @typedef {Object {string, any}} Response
@@ -22,14 +37,13 @@ function getOneProduct(request, response) {
   const productId = parseInt(request.params.id, 10);
 
   return Products.findByPk(productId, queryProductOption)
-    .then((product) => {
-      if (isNull(product)) {
-        return response.status(404).send(`Not found with id ${productId}.`);
-      }
-      return response.status(200).send(
-        mapProductValuesWithKeys(product.toJSON())
-      )
-    })
+    .then((product) => (
+      handleGetProductResponse({
+        productId,
+        product,
+        response,
+      })
+    ))
     .catch((err) => {
       console.log("err", err);
       // save error log here
@@ -37,14 +51,20 @@ function getOneProduct(request, response) {
     });
 }
 
+
+function getAllMappedProducts(allProducts = []) {
+  return allProducts.map(({ dataValues }) => (
+    mapProductValues(dataValues)
+  ));
+}
+
 function getAllProducts(request, response) {
   return Products.findAll(queryProductOption)
     .then((allProducts) =>
-      allProducts.map(({ dataValues }) => (
-        mapProductValuesWithKeys(dataValues)
-      ))
+      response.status(200).send({
+        data: getAllMappedProducts(allProducts)
+      })
     )
-    .then((allMappedProducts) => response.status(200).send({ data: allMappedProducts }))
     .catch((error) => {
       console.log("error", error);
       return response.status(500).send("something went wrong");

@@ -1,6 +1,6 @@
 const getSizesInVariants = require('./getSizesInVariants');
 
-function mapProductValuesWithKeys(product = {}) {
+function mapProductValues(product = {}) {
   const mappedProduct = {
     ...product,
     sizes: getSizesInVariants(product.Inventories),
@@ -13,4 +13,4 @@ function mapProductValuesWithKeys(product = {}) {
   return mappedProduct;
 }
 
-module.exports = mapProductValuesWithKeys;
+module.exports = mapProductValues;
