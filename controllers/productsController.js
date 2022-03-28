@@ -4,23 +4,9 @@ const { sequelize } = require("../models");
 
 const mapProductValuesWithKeys = require("../utils/mapProductValuesWithKeys")
 
-const { Products, Inventories, Images } = sequelize.models;
+const { queryProductOption } = require("../constants/queryOptions");
 
-const queryProductOption = {
-  attributes: {
-    exclude: ["createdAt", "updatedAt", "productId"],
-  },
-  include: [
-    {
-      model: Inventories,
-      attributes: ["safetyStock", "colorCode", "size"],
-    },
-    {
-      model: Images,
-      attributes: ["url"],
-    },
-  ],
-};
+const { Products } = sequelize.models;
 
 /**
  * @typedef {Object {string, any}} Response

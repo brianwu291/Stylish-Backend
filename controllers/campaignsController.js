@@ -3,24 +3,14 @@ const { sequelize } = require("../models");
 const groupCampaignProductByCampaignId = require("../utils/groupCampaignProductByCampaignId");
 const mapProductValuesWithKeys = require("../utils/mapProductValuesWithKeys");
 
+const { queryProductOption } = require("../constants/queryOptions");
+
 const {
   CampaignProducts,
   Campaigns,
   Products,
-  Inventories,
-  Images,
 } = sequelize.models;
 
-const includeProductOption =  [
-    {
-      model: Inventories,
-      attributes: ["safetyStock", "colorCode", "size"],
-    },
-    {
-      model: Images,
-      attributes: ["url"],
-    },
-  ];
 
 const queryCampaignProductsOption = {
   attributes: {
@@ -35,10 +25,7 @@ const queryCampaignProductsOption = {
     {
       model: Products,
       required: true,
-      attributes: {
-        exclude: ["createdAt", "updatedAt", "productId"],
-      },
-      include: includeProductOption
+      ...queryProductOption,
     }
   ],
 };
