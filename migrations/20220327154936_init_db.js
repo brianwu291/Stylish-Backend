@@ -116,10 +116,10 @@ const migrationCommands = (transaction) => [
           field: "story",
           allowNull: false,
         },
-        mainImageId: {
-          type: Sequelize.INTEGER.UNSIGNED,
-          field: "main_image_id",
-          allowNull: true,
+        mainImage: {
+          type: Sequelize.STRING(128),
+          field: "main_image",
+          allowNull: false,
         },
       },
       { transaction },

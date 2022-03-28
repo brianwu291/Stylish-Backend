@@ -1,4 +1,4 @@
 getopts ":m:" option
 
-sequelize-mig migration:add \
+sequelize-mig migration:make \
       -n ${OPTARG}
