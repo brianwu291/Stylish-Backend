@@ -50,10 +50,10 @@ module.exports = (sequelize, DataTypes) => {
         defaultValue: null,
         allowNull: true,
       },
-      profileImageId: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: true,
-        field: "profile_image_id",
+      profileImage: {
+        type: DataTypes.STRING(500),
+        allowNull: false,
+        field: "profile_image",
       },
     },
     {

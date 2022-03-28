@@ -69,7 +69,7 @@ module.exports = (sequelize, DataTypes) => {
         field: "story",
       },
       mainImage: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(500),
         allowNull: false,
         field: "main_image",
       },

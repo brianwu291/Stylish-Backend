@@ -26,10 +26,10 @@ module.exports = (sequelize, DataTypes) => {
         unique: true,
         field: "title",
       },
-      mainImageId: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: true,
-        field: "main_image_id",
+      mainImage: {
+        type: DataTypes.STRING(500),
+        allowNull: false,
+        field: "main_image",
       },
     },
     {
