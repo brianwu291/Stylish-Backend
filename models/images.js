@@ -33,34 +33,49 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         field: "user_id",
-        references: {
-          model: Users,
-          key: "id",
-        },
       },
       productId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         field: "product_id",
-        references: {
-          model: Products,
-          key: "id",
-        },
       },
       campaignId: {
         type: DataTypes.INTEGER.UNSIGNED,
         allowNull: true,
         field: "campaign_id",
-        references: {
-          model: Campaigns,
-          key: "id",
-        },
       },
     },
     {
       tableName: "images",
     }
   );
+
+  Users.hasMany(Images, {
+    foreignKey: "userId",
+    sourceKey: "id",
+  });
+  Users.belongsTo(Images, {
+    foreignKey: "userId",
+    targetKey: "id"
+  });
+
+  Products.hasMany(Images, {
+    foreignKey: "productId",
+    sourceKey: "id",
+  });
+  Products.belongsTo(Images, {
+    foreignKey: "productId",
+    targetKey: "id"
+  });
+
+  Campaigns.hasMany(Images, {
+    foreignKey: "campaignId",
+    sourceKey: "id",
+  });
+  Campaigns.belongsTo(Images, {
+    foreignKey: "campaignId",
+    targetKey: "id"
+  });
 
   return Images;
 };
