@@ -1,13 +1,26 @@
-const { DataTypes } = require("sequelize");
 const isNull = require("lodash/isNull");
 
-const {
-  sequelize,
-  Inventories,
-  Products,
-} = require("../models");
-// const Inventories = require("../models/inventories")(sequelize, DataTypes);
-// const Products = require("../models/products")(sequelize, DataTypes);
+const { sequelize } = require("../models");
+
+const getSizesInVariants = require("../utils/getSizesInVariants")
+
+const { Products, Inventories, Images } = sequelize.models;
+
+const queryProductOption = {
+  attributes: {
+    exclude: ["createdAt", "updatedAt", "productId"],
+  },
+  include: [
+    {
+      model: Inventories,
+      attributes: ["safetyStock", "colorCode", "size"],
+    },
+    {
+      model: Images,
+      attributes: ["url"],
+    },
+  ],
+};
 
 /**
  * @typedef {Object {string, any}} Response
@@ -22,12 +35,23 @@ const {
 function getOneProduct(request, response) {
   const productId = parseInt(request.params.id, 10);
 
-  return Products.findByPk(productId)
+  return Products.findByPk(productId, queryProductOption)
     .then((product) => {
       if (isNull(product)) {
         return response.status(404).send(`Not found with id ${productId}.`);
       }
-      return response.status(200).send(product.toJSON());
+      return product.toJSON();
+    })
+    .then((product) => {
+      const mappedProduct = {
+        ...product,
+        sizes: getSizesInVariants(product.Inventories),
+        images: product.Images,
+        variants: product.Inventories,
+      };
+      delete mappedProduct.Images;
+      delete mappedProduct.Inventories;
+      return response.status(200).send(mappedProduct);
     })
     .catch((err) => {
       console.log("err", err);
@@ -36,45 +60,26 @@ function getOneProduct(request, response) {
     });
 }
 
-async function getAllProducts(request, response) {
-  try {
-    const allProducts = await Products.findAll({
-      attributes: {
-        exclude: [
-          'createdAt', 'updatedAt', 'productId'
-        ]
-      },
-      include: [
-        {
-          model: Inventories,
-          required: true,
-          attributes: [
-            'safety_stock', 'color_code', 'size'
-          ]
-        },
-      ]
+function getAllProducts(request, response) {
+  return Products.findAll(queryProductOption)
+    .then((allProducts) =>
+      allProducts.map(({ dataValues }) => {
+        const mappedProduct = {
+          ...dataValues,
+          sizes: getSizesInVariants(dataValues.Inventories),
+          images: dataValues.Images,
+          variants: dataValues.Inventories,
+        };
+        delete mappedProduct.Images;
+        delete mappedProduct.Inventories;
+        return mappedProduct;
+      })
+    )
+    .then((allProducts) => response.status(200).send({ data: allProducts }))
+    .catch((error) => {
+      console.log("error", error);
+      return response.status(500).send("something went wrong");
     });
-    // .then(products => products);
-
-    // const allInventories = await Inventories
-    //   .findAll()
-    //   .then(inventories => inventories);
-    response.status(200).send({ data: allProducts });
-    // console.log('allProducts', allProducts)
-  } catch (error) {
-    console.log('error', error)
-    response.status(500).send("something went wrong");
-    throw error;
-  }
-  // return Products.findAll()
-  //   .then((products) => (
-  //     response.status(200).send({ data: products })
-  //   ))
-  //   .catch((err) => {
-  //     console.log("err", err);
-  //     // save error log here
-  //     return response.status(500).send("something went wrong")
-  //   });
 }
 
 module.exports = {
