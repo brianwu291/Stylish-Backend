@@ -1,6 +1,8 @@
 const { Sequelize } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
+  const Images = sequelize.models.Images;
+
   const Products = sequelize.define(
     "Products",
     {
@@ -66,10 +68,10 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         field: "story",
       },
-      mainImageId: {
-        type: DataTypes.INTEGER.UNSIGNED,
-        allowNull: true,
-        field: "main_image_id",
+      mainImage: {
+        type: DataTypes.STRING(128),
+        allowNull: false,
+        field: "main_image",
       },
     },
     {
