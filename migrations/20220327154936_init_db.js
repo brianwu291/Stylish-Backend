@@ -112,7 +112,7 @@ const migrationCommands = (transaction) => [
         },
         note: { type: Sequelize.STRING(128), field: "note", allowNull: false },
         story: {
-          type: Sequelize.STRING(128),
+          type: Sequelize.STRING(500),
           field: "story",
           allowNull: false,
         },

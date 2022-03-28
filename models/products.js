@@ -64,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
         field: "note",
       },
       story: {
-        type: DataTypes.STRING(128),
+        type: DataTypes.STRING(500),
         allowNull: false,
         field: "story",
       },
