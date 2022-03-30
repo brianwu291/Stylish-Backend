@@ -1,7 +1,12 @@
 const isUndefined = require("lodash/isUndefined");
 
+const typeErrorMessage = "campaignProducts should be an array";
 
-function groupCampaignProductByCampaignId(campaignProducts = []) {
+function groupCampaignProductByCampaignId(campaignProducts) {
+  if (!Array.isArray(campaignProducts)) {
+    return new Error(typeErrorMessage);
+  }
+
   return campaignProducts.reduce(
     (
       { groupByMap, finalResult },
@@ -30,4 +35,7 @@ function groupCampaignProductByCampaignId(campaignProducts = []) {
   ).finalResult;
 }
 
-module.exports = groupCampaignProductByCampaignId;
+module.exports = {
+  typeErrorMessage,
+  groupCampaignProductByCampaignId,
+}

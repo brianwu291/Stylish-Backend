@@ -1,6 +1,8 @@
 const { sequelize } = require("../models");
 
-const groupCampaignProductByCampaignId = require("../utils/groupCampaignProductByCampaignId");
+const {
+  groupCampaignProductByCampaignId
+} = require("../utils/groupCampaignProductByCampaignId");
 const mapProductValues = require("../utils/mapProductValues");
 
 const { queryProductOption } = require("../constants/queryOptions");

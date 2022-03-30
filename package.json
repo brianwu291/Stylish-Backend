@@ -12,7 +12,9 @@
     "start": "nodemon app.js",
     "create-new-migrate": "sh ./scripts/create_new_migration_file.sh",
     "migrate::dev": "npx sequelize-cli db:migrate --env development",
-    "migrate::prod": "npx sequelize-cli db:migrate --env production"
+    "migrate::prod": "npx sequelize-cli db:migrate --env production",
+    "jest": "jest",
+    "jest::watch": "jest --runInBand --watch"
   },
   "author": "BrianWu",
   "license": "ISC",
@@ -27,6 +29,7 @@
     "sequelize": "^6.12.5"
   },
   "devDependencies": {
+    "jest": "^27.5.1",
     "sequelize-cli": "^6.3.0",
     "sequelize-mig": "^3.1.3"
   }
