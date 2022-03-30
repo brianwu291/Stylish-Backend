@@ -1,7 +1,5 @@
 const {
   getOneUser,
-  getUserFavoriteProducts,
-  createOneUser,
 } = require("../controllers/usersController");
 
 const validateUserId = require("../middleware/validateUserId");
@@ -20,14 +18,13 @@ const API_PREFIX = "/api/users";
  * @returns {void}
  */
 function usersRoutes(App) {
-  // TODO: add validation on this route
   App.get(`${API_PREFIX}/:id`, validateUserId, getOneUser);
-  App.get(
-    `${API_PREFIX}/:id/favorites`,
-    validateUserId,
-    getUserFavoriteProducts
-  );
-  App.post(`${API_PREFIX}/create`, createOneUser);
+  // App.get(
+  //   `${API_PREFIX}/:id/favorites`,
+  //   validateUserId,
+  //   getUserFavoriteProducts
+  // );
+  // App.post(`${API_PREFIX}/create`, createOneUser);
 }
 
 module.exports = usersRoutes;

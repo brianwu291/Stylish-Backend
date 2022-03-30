@@ -3,6 +3,8 @@
  * @returns {Bool}
  */
 function isPositiveInteger(number) {
+  if (typeof number !== 'number') return false;
+
   const convertedNumber = parseInt(number, 10);
 
   const isNaN = Number.isNaN(convertedNumber);
