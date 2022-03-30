@@ -5,7 +5,9 @@
 - Running mysql server.
 - create .env file for db connection. (Can reference `.envExample`).
 
-Once set up .env, run: `yarn migrate::dev` for db migration.
+Once set up .env, run:
+- `yarn set-db-config` for config setup.
+- `yarn migrate::dev` for db migration.
 
 After running migration, you can run `yarn start`.
 
