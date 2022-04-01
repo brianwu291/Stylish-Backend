@@ -3,7 +3,7 @@ const { Sequelize } = require("sequelize");
 const { SIZES } = require("../constants");
 
 module.exports = (sequelize, DataTypes) => {
-  const Products = sequelize.models.Products;
+  const { Products, Colors } = sequelize.models;
 
   const Inventories = sequelize.define(
     "Inventories",
@@ -47,6 +47,11 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         field: "product_id",
       },
+      colorId: {
+        type: DataTypes.INTEGER.UNSIGNED,
+        allowNull: false,
+        field: "color_id",
+      }
     },
     {
       tableName: "inventories",
@@ -59,6 +64,15 @@ module.exports = (sequelize, DataTypes) => {
   });
   Products.belongsTo(Inventories, {
     foreignKey: "productId",
+    targetKey: "id"
+  });
+
+  Inventories.hasOne(Colors, {
+    foreignKey: "colorId",
+    sourceKey: "id",
+  });
+  Inventories.belongsTo(Colors, {
+    foreignKey: "colorId",
     targetKey: "id"
   });
 

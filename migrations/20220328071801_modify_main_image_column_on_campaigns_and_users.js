@@ -13,7 +13,7 @@ const Sequelize = require("sequelize");
 
 const info = {
   revision: 3,
-  name: "dd",
+  name: "modify_main_image_column_on_campaigns_and_users",
   created: "2022-03-28T07:18:01.440Z",
   comment: "",
 };

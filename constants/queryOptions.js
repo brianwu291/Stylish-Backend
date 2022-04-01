@@ -1,6 +1,6 @@
 const { sequelize } = require("../models");
 
-const { Inventories, Images } = sequelize.models;
+const { Inventories, Images, Colors } = sequelize.models;
 
 const queryProductOption = {
   attributes: {
@@ -10,6 +10,12 @@ const queryProductOption = {
     {
       model: Inventories,
       attributes: ["safetyStock", "colorCode", "size"],
+      include: [
+        {
+          model: Colors,
+          attributes: ["name"]
+        }
+      ],
     },
     {
       model: Images,
