@@ -13,7 +13,7 @@ const queryProductOption = {
       include: [
         {
           model: Colors,
-          attributes: ["name"]
+          attributes: ["name", "code"]
         }
       ],
     },
