@@ -30,10 +30,12 @@ function isStringLengthValid(string) {
 function validateProductId(request, response, next) {
   const productId = request.params.id;
 
+  console.log('productId', productId)
+
   const isValidId =
     isString(productId) &&
     isStringLengthValid(productId) &&
-    isPositiveInteger(productId);
+    isPositiveInteger(parseInt(productId));
 
   if (isValidId) return next();
 

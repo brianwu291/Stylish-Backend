@@ -18,9 +18,9 @@ function handleGetProductResponse({
     return response.status(404).send(`Not found with id ${productId}.`);
   }
 
-  return response.status(200).send(
-    mapProductValues(product.toJSON())
-  )
+  return response.status(200).send({
+    data: mapProductValues(product.toJSON())
+  });
 }
 
 /**
@@ -51,13 +51,51 @@ function getOneProduct(request, response) {
     });
 }
 
-
+/**
+ * @typedef {{ url: string }} image
+ * @typedef {{ code: string, name: string }} color
+ * @typedef {{
+ *   safetyStock: string,
+ *   colorCode: string,
+ *   size: string
+ * }} variant
+ * @typedef {{
+ *   sizes: string[],
+ *   images: image[]
+ *   colors: color[],
+ *   variants: variant[]
+ * }} product
+ * @typedef {product[]} products
+ * 
+ * @param {products} allProducts
+ */
 function getAllMappedProducts(allProducts = []) {
   return allProducts.map(({ dataValues }) => (
     mapProductValues(dataValues)
   ));
 }
 
+/**
+ * @typedef {{ url: string }} image
+ * @typedef {{ code: string, name: string }} color
+ * @typedef {{
+ *   safetyStock: string,
+ *   colorCode: string,
+ *   size: string
+ * }} variant
+ * @typedef {{
+ *   sizes: string[],
+ *   images: image[]
+ *   colors: color[],
+ *   variants: variant[]
+ * }} product
+ * @typedef {product[]} products
+ * @typedef {{ data: products }} SendProducts
+ * @typedef {SendProducts | string | Error} Send
+ *
+ * @param {Response} response
+ * @returns {Promise <Send>}
+ */
 function getAllProducts(request, response) {
   return Products.findAll(queryProductOption)
     .then((allProducts) =>
@@ -71,7 +109,28 @@ function getAllProducts(request, response) {
     });
 }
 
+
+
+function getAllProductsByCategory(request, response) {
+  const { category } = request.params;
+
+  return Products.findAll({
+    ...queryProductOption,
+    where: { category },
+  })
+  .then((allProducts) =>
+    response.status(200).send({
+      data: getAllMappedProducts(allProducts)
+    })
+  )
+  .catch((error) => {
+    console.log("error", error);
+    return response.status(500).send("something went wrong");
+  });
+}
+
 module.exports = {
   getOneProduct,
   getAllProducts,
+  getAllProductsByCategory,
 };

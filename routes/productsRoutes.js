@@ -1,9 +1,11 @@
 const {
   getOneProduct,
   getAllProducts,
+  getAllProductsByCategory,
 } = require("../controllers/productsController");
 
 const validateProductId = require("../middleware/validateProductId");
+const validateProductCategory = require("../middleware/validateProductCategory");
 
 /**
  * @constant
@@ -21,7 +23,9 @@ const API_PREFIX = "/api/products";
 function productsRoutes(App) {
   App.get(`${API_PREFIX}/all`, getAllProducts);
 
-  App.get(`${API_PREFIX}/:id`, validateProductId, getOneProduct);
+  App.get(`${API_PREFIX}/:category`, validateProductCategory, getAllProductsByCategory);
+
+  App.get(`${API_PREFIX}/details/:id`, validateProductId, getOneProduct);
 
   // App.post(`${API_PREFIX}/create`, createOneProduct);
 }
