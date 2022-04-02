@@ -1,13 +1,11 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
 
 const { getEnv } = require('../env');
 
 const environments = getEnv();
-const basename = path.basename(__filename);
 
 const database = {};
 
