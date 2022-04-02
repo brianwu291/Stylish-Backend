@@ -1,9 +1,7 @@
 const { Sequelize } = require('sequelize');
 
 module.exports = (sequelize, DataTypes) => {
-  const Users = sequelize.models.Users;
-  const Products = sequelize.models.Products;
-  const Campaigns = sequelize.models.Campaigns;
+  const { Users, Products, Campaigns } = sequelize.models;
 
   const Images = sequelize.define(
     "Images",
