@@ -4,9 +4,9 @@ const {
   loginUserWithEmailPassword,
 } = require("../controllers/usersController");
 
-const validateUserId = require("../middleware/validateUserId");
+const { validateUserId } = require("../middleware/validateUserId");
 const validateUserSignup = require("../middleware/validateUserSignup");
-const validateUserLogin = require("../middleware/validateUserLogin");
+const { validateUserLogin } = require("../middleware/validateUserLogin");
 
 /**
  * @constant
@@ -22,14 +22,9 @@ const API_PREFIX = "/api/users";
  * @returns {void}
  */
 function usersRoutes(App) {
-  App.get(`${API_PREFIX}/:id`, validateUserId, getUserById);
-  // App.get(
-  //   `${API_PREFIX}/:id/favorites`,
-  //   validateUserId,
-  //   getUserFavoriteProducts
-  // );
   App.post(`${API_PREFIX}/signup`, validateUserSignup, createUserWithStylishSignup);
   App.post(`${API_PREFIX}/login`, validateUserLogin, loginUserWithEmailPassword);
+  App.get(`${API_PREFIX}/:id`, validateUserId, getUserById);
 }
 
 module.exports = usersRoutes;
