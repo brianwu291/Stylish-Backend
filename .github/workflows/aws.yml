@@ -10,6 +10,7 @@ on:
 
 jobs:
   deploy:
+    needs: unit-test
     name: Push to EC2 Instance
     runs-on: ubuntu-latest
 
