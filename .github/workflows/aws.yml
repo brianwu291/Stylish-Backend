@@ -9,6 +9,14 @@ on:
   workflow_dispatch:
 
 jobs:
+  unit-test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install modules
+      run: yarn
+    - name: Run tests
+      run: yarn jest
   deploy:
     needs: unit-test
     name: Push to EC2 Instance
