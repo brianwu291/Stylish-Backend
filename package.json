@@ -19,14 +19,17 @@
   "author": "BrianWu",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.19.1",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mysql2": "^2.3.3",
     "nodemon": "^2.0.2",
-    "sequelize": "^6.12.5"
+    "sequelize": "^6.12.5",
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "jest": "^27.5.1",
