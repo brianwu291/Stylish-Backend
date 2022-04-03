@@ -12,6 +12,7 @@ const env = {
       port: process.env.RDS_PORT,
       name: process.env.RDS_DB_NAME,
     },
+    tokenSecret: process.env.TOKEN_SECRET,
   },
   development: {
     database: {
@@ -21,6 +22,7 @@ const env = {
       port: process.env.developmentDbPort,
       name: process.env.developmentDBName,
     },
+    tokenSecret: process.env.TOKEN_SECRET,
   },
   test: {
     database: {
@@ -30,6 +32,7 @@ const env = {
       port: process.env.RDS_PORT,
       name: process.env.RDS_DB_NAME,
     },
+    tokenSecret: process.env.TOKEN_SECRET,
   },
 };
 

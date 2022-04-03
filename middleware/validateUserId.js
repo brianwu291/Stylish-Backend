@@ -16,6 +16,10 @@ function isStringLengthValid(string) {
   return string.length > 0 && string.length <= maxStringLength;
 }
 
+const errorMsg = "user id type issue.";
+const errorKey = "setting-error-user-id";
+const validateError = { errorMsg, errorKey };
+
 /**
  * @typedef {Object {string, any}} Response
  * @typedef {Object {string, any}} Request
@@ -28,19 +32,20 @@ function isStringLengthValid(string) {
  * @returns {Send | NextFunction.return}
  */
 function validateUserId(request, response, next) {
-  const userId = request.params.id;
+  const userId = `${request.params.id}`;
 
   const isValidId =
     isString(userId) &&
     isStringLengthValid(userId) &&
-    isPositiveInteger(userId);
+    isPositiveInteger( parseInt(userId));
 
   if (isValidId) return next();
 
-  return response.status(400).send({
-    errorMessage: "user id type issue.",
-    errorKey: "setting-error-user-id",
-  });
+  return response.status(400).send(validateError);
 }
 
-module.exports = validateUserId;
+
+module.exports = {
+  validateUserId,
+  validateError,
+}

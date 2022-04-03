@@ -1,11 +1,12 @@
 const isNull = require("lodash/isNull");
 
-const { sequelize } = require("../models");
+const { sequelize, Sequelize } = require("../models");
 
 const mapProductValues = require("../utils/mapProductValues")
 
 const { queryProductOption } = require("../constants/queryOptions");
 
+const { Op: Operation } = Sequelize;
 const { Products } = sequelize.models;
 
 
@@ -110,9 +111,30 @@ function getAllProducts(request, response) {
 }
 
 
-
-function getAllProductsByCategory(request, response) {
-  const { category } = request.params;
+/**
+ * @typedef {{ url: string }} image
+ * @typedef {{ code: string, name: string }} color
+ * @typedef {{
+ *   safetyStock: string,
+ *   colorCode: string,
+ *   size: string
+ * }} variant
+ * @typedef {{
+ *   sizes: string[],
+ *   images: image[]
+ *   colors: color[],
+ *   variants: variant[]
+ * }} product
+ * @typedef {product[]} products
+ * @typedef {{ data: products }} SendProducts
+ * @typedef {SendProducts | string | Error} Send
+ *
+ * @param {{ params: { category: string  } }} request
+ * @param {Response} response
+ * @returns {Promise <Send>}
+ */
+function getProductsByCategory(request, response) {
+  const category = request.params.category;
 
   return Products.findAll({
     ...queryProductOption,
@@ -129,8 +151,46 @@ function getAllProductsByCategory(request, response) {
   });
 }
 
+
+function getProductsByKeyword(request, response) {
+  const { keyword } = request.query;
+  
+  return Products.findAll({
+    ...queryProductOption,
+    where: {
+      [Operation.or]: [
+        {
+          title: {
+            [Operation.like]: `%${keyword}%`
+          }
+        },
+        {
+          description: {
+            [Operation.like]: `%${keyword}%`
+          }
+        },
+        {
+          story: {
+            [Operation.like]: `%${keyword}%`
+          }
+        },
+      ],
+    },
+  })
+  .then((allProducts) =>
+    response.status(200).send({
+      data: getAllMappedProducts(allProducts)
+    })
+  )
+  .catch((error) => {
+    console.log("error", error);
+    return response.status(500).send("something went wrong");
+  });
+}
+
 module.exports = {
   getOneProduct,
   getAllProducts,
-  getAllProductsByCategory,
+  getProductsByCategory,
+  getProductsByKeyword,
 };

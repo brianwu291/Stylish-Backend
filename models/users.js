@@ -1,9 +1,7 @@
 const { Sequelize } = require('sequelize');
 
-const { PROVIDERS } = require("../constants");
-
 module.exports = (sequelize, DataTypes) => {
-  const User = sequelize.define(
+  const Users = sequelize.define(
     "Users",
     {
       id: {
@@ -24,11 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         field: "updated_at",
       },
-      provider: {
-        type: DataTypes.ENUM(Object.values(PROVIDERS)),
-        allowNull: false,
-        field: "provider",
-      },
       name: {
         type: DataTypes.STRING(255),
         allowNull: false,
@@ -42,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       password: {
         type: DataTypes.STRING(128),
-        allowNull: false,
+        allowNull: true,
         field: "password",
       },
       birthday: {
@@ -52,8 +45,23 @@ module.exports = (sequelize, DataTypes) => {
       },
       profileImage: {
         type: DataTypes.STRING(500),
-        allowNull: false,
+        allowNull: true,
         field: "profile_image",
+      },
+      authToken: {
+        type: DataTypes.STRING(600),
+        allowNull: true,
+        field: "auth_token",
+      },
+      googleToken: {
+        type: DataTypes.STRING(600),
+        allowNull: true,
+        field: "google_token",
+      },
+      facebookToken: {
+        type: DataTypes.STRING(600),
+        allowNull: true,
+        field: "facebook_token",
       },
     },
     {
@@ -61,5 +69,5 @@ module.exports = (sequelize, DataTypes) => {
     }
   );
 
-  return User;
+  return Users;
 };
