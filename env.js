@@ -39,7 +39,7 @@ const env = {
 function getEnv() {
   switch (process.env.NODE_ENV) {
     case "production":
-      return env.prod;
+      return env.production;
     case "test":
       return env.test;
     case "development":
