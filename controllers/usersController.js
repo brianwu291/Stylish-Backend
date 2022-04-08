@@ -2,7 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const isNull = require('lodash/isNull');
 
-const { getEnv } = require('../env');
 const { sequelize } = require('../models');
 
 const generateJwtAuthToken = require('../utils/generateJwtAuthToken');

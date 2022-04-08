@@ -3,7 +3,8 @@ const { config } = require("dotenv");
 config();
 
 const env = {
-  PORT: process.env.PORT,
+  origin: process.env.ORIGIN,
+  port: process.env.PORT,
   production: {
     database: {
       host: process.env.RDS_HOSTNAME,
@@ -36,7 +37,7 @@ const env = {
   },
 };
 
-function getEnv() {
+function getDatabaseEnv() {
   switch (process.env.NODE_ENV) {
     case "production":
       return env.production;
@@ -49,6 +50,6 @@ function getEnv() {
 }
 
 module.exports = {
-  getEnv,
+  getDatabaseEnv,
   env,
 };

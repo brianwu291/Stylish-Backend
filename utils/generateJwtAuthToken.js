@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
-const { getEnv } = require('../env');
+const { getDatabaseEnv } = require('../env');
 
 function generateJwtAuthToken(options = {}, expiresIn = '1d') {
-  const { tokenSecret } = getEnv()
+  const { tokenSecret } = getDatabaseEnv()
   const authToken = jwt.sign({
     createdAt: new Date().getTime(),
     ...options,
