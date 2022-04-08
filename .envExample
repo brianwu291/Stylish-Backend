@@ -1,8 +1,10 @@
+ORIGIN=
 PORT=
+
 developmentDbHost=
 developmentDbUser=
 developmentDbPassword=
-developmentPort=
+developmentDbPort=
 developmentDBName=
 
 testDbHost=
@@ -11,8 +13,10 @@ testDbPassword=
 testPort=
 testDBName=
 
-productionDbHost=
-productionDbUser=
-productionDbPassword=
-productionPort=
-productionDBName=
+RDS_HOSTNAME=
+RDS_USERNAME=
+RDS_PASSWORD=
+RDS_PORT=
+RDS_DB_NAME=
+
+TOKEN_SECRET=

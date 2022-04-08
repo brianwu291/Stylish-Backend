@@ -1,6 +1,6 @@
 {
   "name": "stylish",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "",
   "main": "app.js",
   "engines": {
@@ -8,8 +8,10 @@
   },
   "scripts": {
     "set-db-config": "node createConfigFileForSequelize.js",
-    "prestart": "yarn set-db-config",
+    "premigrate::dev": "yarn set-db-config",
+    "premigrate::prod": "yarn set-db-config",
     "start": "nodemon app.js",
+    "start::prod": "export NODE_ENV=production && nodemon app.js",
     "create-new-migrate": "sh ./scripts/create_new_migration_file.sh",
     "migrate::dev": "npx sequelize-cli db:migrate --env development",
     "migrate::prod": "npx sequelize-cli db:migrate --env production",
@@ -24,6 +26,7 @@
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "helmet": "^5.0.2",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
     "mysql2": "^2.3.3",

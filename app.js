@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const helmet = require('helmet');
 const bodyParser = require("body-parser");
 
 const { env } = require("./env");
@@ -14,11 +15,12 @@ connectDatabase();
 const app = express();
 
 /* Middleware */
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: env.origin,
   })
 );
 
@@ -27,6 +29,6 @@ productsRoutes(app);
 usersRoutes(app);
 campaignsRoutes(app);
 
-app.listen(env.PORT, () => {
-  console.log("Listening at " + env.PORT);
+app.listen(env.port, () => {
+  console.log("Listening at " + env.port);
 });
