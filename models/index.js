@@ -3,9 +3,9 @@
 const path = require('path');
 const Sequelize = require('sequelize');
 
-const { getEnv } = require('../env');
+const { getDatabaseEnv } = require('../env');
 
-const environments = getEnv();
+const environments = getDatabaseEnv();
 
 const database = {};
 
