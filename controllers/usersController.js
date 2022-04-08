@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken');
 const isNull = require('lodash/isNull');
 
 const { sequelize } = require('../models');
@@ -84,7 +83,7 @@ function createUserWithStylishSignup(request, response) {
       return response.status(500).send({
         errorMessage: "signup fail with server issue",
         errorKey: "setting-error-user-signup"
-      })
+      });
     });
   
 }
@@ -135,10 +134,44 @@ function loginUserWithEmailPassword(request, response) {
     });
 }
 
+function getUserProfileWithUserInfoFromJwt(request, response) {
+  const { email, name } = request.userInfoFromJwt;
+
+  return Users.findOne({
+    attributes: {
+      exclude: ["createdAt", "updatedAt", "userId"],
+    },
+    where: { name, email },
+  })
+    .then((user) => {
+      if (isNull(user)) {
+        return response.status(404).send("user not found");
+      }
+  
+      const { dataValues } = user;
+      return response.status(200).send({
+        name: dataValues.name,
+        email: dataValues.email,
+        birthday: dataValues.birthday,
+        profileImage: dataValues.profileImage,
+        authToken: dataValues.authToken,
+        googleToken: dataValues.googleToken,
+        facebookToken: dataValues.facebookToken,
+      });
+    })
+    .catch((error) => {
+      console.log('error', error);
+      return response.status(500).send({
+        errorMessage: "fail with server issue",
+        errorKey: "setting-error-user"
+      })
+    });
+}
 
 
 module.exports = {
   getUserById,
   createUserWithStylishSignup,
   loginUserWithEmailPassword,
+  getUserProfileWithUserInfoFromJwt,
 };
