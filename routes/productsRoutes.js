@@ -16,8 +16,11 @@ const validateSearchProductsKeyword = require("../middleware/validateSearchProdu
 const API_PREFIX = "/api/products";
 
 /**
- * @typedef {Function <(path: string, validateProductId: function, getOneProduct: function) => (returns: any)>} get
- * @typedef {Object <string, get>} Application
+ * @typedef {Function} get
+ * @typedef {Function} post
+ * @typedef {{
+ *  get: get
+ * }} Application
  *
  * @param {Application} App
  * @returns {void}
