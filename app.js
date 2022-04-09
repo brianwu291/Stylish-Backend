@@ -15,7 +15,7 @@ connectDatabase();
 const app = express();
 
 /* Middleware */
-app.use(helmet());
+// app.use(helmet());
 app.use(bodyParser.json());
 app.use(express.static("public"));
 app.use(
