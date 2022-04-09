@@ -5,52 +5,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/index/index-web.css">
-  <link rel="stylesheet" href="/css/index/index-mobile.css">
+  <link rel="stylesheet" href="/css/profile/profile-web.css">
+  <link rel="stylesheet" href="/css/profile/profile-mobile.css">
   <link rel="Shortcut Icon" type="image/x-icon" href="/images/main_icon.ico"/>
   <title>Stylish</title>
   <!-- Google Tag Manager -->
-	<script>
-		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-NS3WCM5');
-	</script>
-	<!-- End Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NS3WCM5');
+  </script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
-	<!-- Google Tag Manager (noscript) -->
-	<noscript>
-		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NS3WCM5"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe>
-	</noscript>
-	<!-- End Google Tag Manager (noscript) -->
-  <div class="container">
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NS3WCM5"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
+  <script async defer src="https://connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v3.2&appId=426824888123410&autoLogAppEvents=1"></script>
     <header>
       <div class="header-wrapper">
         <div class="navbar">
           <div class="logo-and-category">
             <div class="logo">
-              <a href="/">
+              <a href="index.html">
                 <img src="/images/logo/logo.png" alt="logo"/>
               </a>
             </div>
             <div class="category">
-              <button class="women-item">女裝</button>
-              <button class="man-item">男裝</button>
-              <button class="accessory-item">配件</button>
+              <a href="index.html?category=women" class="women-item">女裝</a>
+              <a href="index.html?category=men" class="man-item">男裝</a>
+              <a href="index.html?category=accessory" class="accessory-item">配件</a>
             </div>
           </div>
           <div class="search-and-cart-member">
             <div class="search">
-              <form class="search-form">
-                <input class="input" type="text" value=""/>
+              <form action="index.html" class="search-form">
+                <input class="input" type="text" name="search"/>
               </form>
             </div>
             <div class="cart-and-member">
               <div class="cart-icon">
-                <a href="/cart.html">
+                <a href="cart.html">
                   <div>
                     <img src="/images/cart/cart.png" alt="cart"/>
                     <span class="cart-none">0</span>
@@ -59,7 +59,7 @@
               </div>
               <div class="member-icon">
                 <button>
-                  <a href="/profile.html">
+                  <a href="profile.html">
                     <img src="/images/member/member.png" alt="member-icon"/>
                   </a>
                 </button>
@@ -71,8 +71,8 @@
           </a>
         </div>
         <div class="hide">
-          <form class="search-form">
-            <input class="input" type="text" value=""/>
+          <form action="index.html" class="search-form">
+            <input class="input" type="text" name="search"/>
           </form>
           <span class="close-search-input"><button>X</button></span>
         </div>
@@ -80,20 +80,17 @@
     </header>
     <div class="black-blank">
       <div class="mobile-category">
-        <button class="women-item">女裝</button>
-        <button class="man-item">男裝</button>
-        <button class="accessory-item">配件</button>
-      </div>
+        <a href="index.html?category=women" class="women-item">女裝</a>
+        <a href="index.html?category=men" class="man-item">男裝</a>
+        <a href="index.html?category=accessory" class="accessory-item">配件</a>
+      </div>  
     </div>
-    <div class="campaign">
-      <div class="campaign-wrapper">
-      </div>
+    <div class="login-and-out-button" 
+    style="margin: auto; width: fit-content; margin-top: 80px">
+      <div id="fb-root"></div>
+      <div class="fb-login-button" data-size="large" data-button-type="login_with" data-auto-logout-link="true" data-use-continue-as="false"></div>
     </div>
-    <section class="content group">
-      <div class="flex-column">
-      </div>
-    </section>
-    <footer class="web-footer">
+      <footer class="web-footer">
       <div class="footer-wrapper">
         <div class="information">
           <a href="#" class="info about-us">關於 Stylish</a>
@@ -145,7 +142,7 @@
       </footer>
     <div class="mobile-cart-and-member">
       <div class="mobile-cart-icon">
-        <a href="/cart.html">
+        <a href="cart.html">
           <div>
             <img src="/images/cart/cart-mobile.png" alt="mobile-cart"/>
             <span class="cart-none">0</span>
@@ -156,7 +153,7 @@
       <div class="divide-line"></div>
       <div class="mobile-member-icon">
         <button>
-          <a href="/profile.html">
+          <a href="profile.html">
             <img src="/images/member/member-mobile.png" alt="mobile-member"/>
             <p>會員</p>
           </a>
@@ -165,16 +162,6 @@
     </div>
   </div>
   <script src="/js/rwdEffect/index.js"></script>
-  <script src="/js/api/index.js"></script>
-  <script src="/js/homepage/showProducts/createLists.js" ></script>
-  <script src="/js/homepage/showProducts/index.js"></script>
-  <script src="/js/homepage/showProducts/productAll.js"></script>
-  <script src="/js/homepage/showProducts/productWomen.js"></script>
-  <script src="/js/homepage/showProducts/productMen.js"></script>
-  <script src="/js/homepage/showProducts/productAccessory.js"></script>
-  <script src="/js/homepage/searchProduct/index.js"></script>
-  <script src="/js/homepage/showProducts/scrollCreate.js"></script>
-  <script src="/js/homepage/campaign/createPhoto.js"></script>
-  <script src="/js/homepage/campaign/index.js"></script>
+  <script src="/js/profilePage/index.js"></script>
 </body>
 </html>

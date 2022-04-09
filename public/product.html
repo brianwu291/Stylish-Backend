@@ -5,92 +5,138 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <link rel="stylesheet" href="/css/normalize.css">
-  <link rel="stylesheet" href="/css/index/index-web.css">
-  <link rel="stylesheet" href="/css/index/index-mobile.css">
+  <link rel="stylesheet" href="/css/products/product-web.css">
+  <link rel="stylesheet" href="/css/products/product-mobile.css">
   <link rel="Shortcut Icon" type="image/x-icon" href="/images/main_icon.ico"/>
   <title>Stylish</title>
   <!-- Google Tag Manager -->
-	<script>
-		(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-	})(window,document,'script','dataLayer','GTM-NS3WCM5');
-	</script>
-	<!-- End Google Tag Manager -->
+  <script>
+    (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-NS3WCM5');
+  </script>
+  <!-- End Google Tag Manager -->
 </head>
 <body>
-	<!-- Google Tag Manager (noscript) -->
-	<noscript>
-		<iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NS3WCM5"
-	height="0" width="0" style="display:none;visibility:hidden"></iframe>
-	</noscript>
-	<!-- End Google Tag Manager (noscript) -->
+  <!-- Google Tag Manager (noscript) -->
+  <noscript>
+    <iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NS3WCM5"
+  height="0" width="0" style="display:none;visibility:hidden"></iframe>
+  </noscript>
+  <!-- End Google Tag Manager (noscript) -->
   <div class="container">
     <header>
       <div class="header-wrapper">
         <div class="navbar">
           <div class="logo-and-category">
             <div class="logo">
-              <a href="/">
+              <a href="index.html">
                 <img src="/images/logo/logo.png" alt="logo"/>
               </a>
             </div>
             <div class="category">
-              <button class="women-item">女裝</button>
-              <button class="man-item">男裝</button>
-              <button class="accessory-item">配件</button>
+              <a href="index.html?category=women" class="women-item">女裝</a>
+              <a href="index.html?category=men" class="man-item">男裝</a>
+              <a href="index.html?category=accessory" class="accessory-item">配件</a>
             </div>
           </div>
           <div class="search-and-cart-member">
             <div class="search">
-              <form class="search-form">
-                <input class="input" type="text" value=""/>
+              <form action="index.html" class="search-form">
+                <input class="input" type="text" name="search"/>
               </form>
             </div>
             <div class="cart-and-member">
               <div class="cart-icon">
-                <a href="/cart.html">
+                <a href="cart.html">
                   <div>
                     <img src="/images/cart/cart.png" alt="cart"/>
                     <span class="cart-none">0</span>
-                    </div>
-                  </a>
+                  </div>
+                </a>
               </div>
               <div class="member-icon">
                 <button>
-                  <a href="/profile.html">
+                  <a href="profile.html">
                     <img src="/images/member/member.png" alt="member-icon"/>
                   </a>
                 </button>
               </div>
             </div>
           </div>
-          <a href="#" class="mobile-search-icon">
+          <button class="mobile-search-icon">
             <img src="/images/search.png" alt=""/>
-          </a>
+          </button>
         </div>
         <div class="hide">
-          <form class="search-form">
-            <input class="input" type="text" value=""/>
+          <form action="index.html" class="search-form">
+            <input class="input" type="text" name="search"/>
           </form>
-          <span class="close-search-input"><button>X</button></span>
+          <span class="close-search-input"><button>X</a></button>
         </div>
       </div>
     </header>
     <div class="black-blank">
       <div class="mobile-category">
-        <button class="women-item">女裝</button>
-        <button class="man-item">男裝</button>
-        <button class="accessory-item">配件</button>
-      </div>
+        <a href="index.html?category=women" class="women-item">女裝</a>
+        <a href="index.html?category=men" class="man-item">男裝</a>
+        <a href="index.html?category=accessory" class="accessory-item">配件</a>
+      </div>  
     </div>
-    <div class="campaign">
-      <div class="campaign-wrapper">
-      </div>
-    </div>
-    <section class="content group">
+    <section class="product content">
       <div class="flex-column">
+      </div>
+      <div class="product-info">
+        <div class="main-img">
+        </div>
+        <div class="product-info-detail">
+          <div class="name-id-price">
+          </div>
+          <div class="color-size-quantity">
+            <div class="choose-color">
+              <p class="color-title">顏色</p>
+              <div class="color-group">
+              </div>
+            </div>
+            <div class="choose-size">
+              <p class="size-title">尺寸</p>
+              <div class="size-group">
+              </div>
+            </div>
+            <div class="choose-quantity">
+              <p class="quantity-title">數量</p>
+              <div class="quantity-group">
+                <span class="minus">
+                  <button id="minus-btn">-</button>
+                </span>
+                <input id='quantity-input' type="number" min="1" readonly="readonly"/>
+                <span class="plus">
+                    <button id="plus-btn">+</button>
+                </span>
+              </div>
+            </div>
+            <div class="reminder">
+              <button class="add-to-cart" disabled>請選擇顏色和尺寸</button>
+            </div>
+          </div>
+          <div class="product-note">
+          </div>
+        </div>
+      </div>
+      
+      <div class="product-detail-description">
+        <div class="seperate-part">
+          <p class="detail-title">細部說明</p>
+          <div class="seperate-line"></div>
+        </div>
+        <div class="detail-first-part">
+          <p class="detail-text"></p>
+        </div>
+        <div class="detail-second-part">
+            <p class="detail-text"></p>
+          </div>
       </div>
     </section>
     <footer class="web-footer">
@@ -145,7 +191,7 @@
       </footer>
     <div class="mobile-cart-and-member">
       <div class="mobile-cart-icon">
-        <a href="/cart.html">
+        <a href="cart.html">
           <div>
             <img src="/images/cart/cart-mobile.png" alt="mobile-cart"/>
             <span class="cart-none">0</span>
@@ -156,7 +202,7 @@
       <div class="divide-line"></div>
       <div class="mobile-member-icon">
         <button>
-          <a href="/profile.html">
+          <a href="profile.html">
             <img src="/images/member/member-mobile.png" alt="mobile-member"/>
             <p>會員</p>
           </a>
@@ -166,15 +212,9 @@
   </div>
   <script src="/js/rwdEffect/index.js"></script>
   <script src="/js/api/index.js"></script>
-  <script src="/js/homepage/showProducts/createLists.js" ></script>
-  <script src="/js/homepage/showProducts/index.js"></script>
-  <script src="/js/homepage/showProducts/productAll.js"></script>
-  <script src="/js/homepage/showProducts/productWomen.js"></script>
-  <script src="/js/homepage/showProducts/productMen.js"></script>
-  <script src="/js/homepage/showProducts/productAccessory.js"></script>
-  <script src="/js/homepage/searchProduct/index.js"></script>
-  <script src="/js/homepage/showProducts/scrollCreate.js"></script>
-  <script src="/js/homepage/campaign/createPhoto.js"></script>
-  <script src="/js/homepage/campaign/index.js"></script>
+  <script src="/js/productPage/productDetail/index.js"></script>
+  <script src="/js/productPage/productDetail/showDetails.js"></script>
+  <script src="/js/productPage/productDetail/createElement.js"></script>
+  <script src="/js/productPage/categoryChoose/index.js"></script>
 </body>
 </html>
