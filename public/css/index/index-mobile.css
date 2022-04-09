@@ -53,7 +53,7 @@
     padding: 10px;
     justify-content: space-evenly;
   }
-  .mobile-category button{
+  .mobile-category a {
     color: #828282;
     font-size: 17px;
     letter-spacing: 20px;
