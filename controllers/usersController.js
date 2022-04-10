@@ -1,5 +1,6 @@
 const bcrypt = require('bcrypt');
 const isNull = require('lodash/isNull');
+const pick = require('lodash/pick');
 
 const { sequelize } = require('../models');
 
@@ -7,36 +8,12 @@ const generateJwtAuthToken = require('../utils/generateJwtAuthToken');
 
 const { Users } = sequelize.models;
 
-/**
- * @typedef {Object {string, any}} Response
- * @typedef {Object {User.toJSON | string | Error}} Send
- *
- * @param {object} request
- * @param {object} request.params
- * @param {string | number} request.params.id
- * @param {Response} response
- * @returns {Promise <Send>}
- */
-function getUserById(request, response) {
-  const userId = parseInt(request.params.id, 10);
+const commonUserInfoFields = [
+  "name", "email", "birthday", "profileImage", "authToken",
+];
 
-  return Users.findByPk(userId)
-    .then(user => {
-      if (isNull(user)) {
-        return response.status(404).send(
-          `Not found with id ${userId}.`
-        );
-      }
 
-      return response.status(200).send(user.toJSON());
-    })
-    .catch(err => (
-      response.status(500).send(err)
-      // save error log here
-    ));
-}
-
-function createUserWithStylishSignup(request, response) {
+async function createUserWithStylishSignup(request, response) {
   const {
     name,
     email,
@@ -49,37 +26,37 @@ function createUserWithStylishSignup(request, response) {
   const bcryptSalt = bcrypt.genSaltSync(10);
   const hashPassword = bcrypt.hashSync(password, bcryptSalt)
 
-  // https://github.com/dcodeIO/bcrypt.js#readme
-  const authToken = generateJwtAuthToken({ name, email }, '30d');
-  
-  return Users.create({
-    name,
-    email,
-    password: hashPassword,
-    birthday,
-    profileImage,
-    authToken
-  })
-    .then(({ dataValues }) => {
-      const {
-        id, name, email, birthday = null, profileImage = null,
-        authToken, googleToken = null, facebookToken = null,
-      } = dataValues;
-      return response.status(200).send({
-        id,name, email, birthday, profileImage,
-        authToken, googleToken, facebookToken,
-      });
+  // https://github.com/auth0/node-jsonwebtoken#readme
+  const authToken = generateJwtAuthToken({ name, email }, "8h");
+
+  const transaction = await sequelize.transaction();
+  return Users.create(
+    {
+      name,
+      email,
+      password: hashPassword,
+      birthday,
+      profileImage,
+      authToken
+    },
+    { transaction }
+  )
+    .then(async ({ dataValues }) => {
+      await transaction.commit();
+      return response.status(200).send(pick(dataValues, commonUserInfoFields))
     })
-    .catch(({ errors }) => {
-      const hasDuplicateError = Array.isArray(errors) && errors.some(({ validatorKey }) => validatorKey === 'not_unique');
+    .catch(async ({ errors }) => {
+      const hasDuplicateError = Array.isArray(errors) && errors.some(({ validatorKey }) => validatorKey === "not_unique");
 
       if (hasDuplicateError) {
+        await transaction.rollback();
         return response.status(400).send({
           errorMessage: "user already exist",
           errorKey: "setting-error-user-signup"
         })
       }
 
+      await transaction.rollback();
       return response.status(500).send({
         errorMessage: "signup fail with server issue",
         errorKey: "setting-error-user-signup"
@@ -88,45 +65,51 @@ function createUserWithStylishSignup(request, response) {
   
 }
 
-function loginUserWithEmailPassword(request, response) {
+async function loginUserWithEmailPassword(request, response) {
   const { email, password } = request.body;
+
+  const transaction = await sequelize.transaction();
 
   return Users.findOne({
     attributes: {
       exclude: ["createdAt", "updatedAt", "userId"],
     },
     where: { email },
+    transaction,
   })
-    .then((user) => {
+    .then(async (user) => {
       if (isNull(user)) {
-        return response.status(404).send(
-          `Not found user with email ${email}.`
-        );
+        await transaction.commit();
+        return response.status(400).send({
+          errorMessage: "password not correct or user not exist",
+          errorKey: "setting-error-user-login"
+        });
       }
 
       const { name, password: hashedPassword } = user.dataValues;
       const isPasswordCorrect = bcrypt.compareSync(password, hashedPassword);
 
       if (isPasswordCorrect) {
-        const newAuthToken = generateJwtAuthToken({ name, email }, '30d');
+        const newAuthToken = generateJwtAuthToken({ name, email }, '8h');
 
         user.set({ authToken: newAuthToken });
-        return user.save()
-          .then(() => {
-            return response.status(200).send({
-              email,
-              authToken: newAuthToken
-            })
-          });
+        user.save()
+        await transaction.commit(); 
+        return response.status(200).send({
+          email,
+          authToken: newAuthToken
+        });
       }
 
+      await transaction.commit();
       return response.status(400).send({
-        errorMessage: "password not correct",
+        errorMessage: "password not correct or user not exist",
         errorKey: "setting-error-user-login"
       });
     })
-    .catch((error) => {
+    .catch(async (error) => {
       console.log('error', error);
+      await transaction.rollback();
       return response.status(500).send({
         errorMessage: "login fail with server issue",
         errorKey: "setting-error-user-login"
@@ -144,20 +127,10 @@ function getUserProfileWithUserInfoFromJwt(request, response) {
     where: { name, email },
   })
     .then((user) => {
-      if (isNull(user)) {
-        return response.status(404).send("user not found");
-      }
-  
+      if (isNull(user)) return response.status(404).send("user not found");
+
       const { dataValues } = user;
-      return response.status(200).send({
-        name: dataValues.name,
-        email: dataValues.email,
-        birthday: dataValues.birthday,
-        profileImage: dataValues.profileImage,
-        authToken: dataValues.authToken,
-        googleToken: dataValues.googleToken,
-        facebookToken: dataValues.facebookToken,
-      });
+      response.status(200).send(pick(dataValues, commonUserInfoFields))
     })
     .catch((error) => {
       console.log('error', error);
@@ -170,7 +143,6 @@ function getUserProfileWithUserInfoFromJwt(request, response) {
 
 
 module.exports = {
-  getUserById,
   createUserWithStylishSignup,
   loginUserWithEmailPassword,
   getUserProfileWithUserInfoFromJwt,
