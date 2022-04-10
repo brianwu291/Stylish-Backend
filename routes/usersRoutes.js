@@ -1,11 +1,9 @@
 const {
-  getUserById,
   createUserWithStylishSignup,
   loginUserWithEmailPassword,
   getUserProfileWithUserInfoFromJwt,
 } = require("../controllers/usersController");
 
-const { validateUserId } = require("../middleware/validateUserId");
 const validateUserSignup = require("../middleware/validateUserSignup");
 const { validateUserLogin } = require("../middleware/validateUserLogin");
 const validateJwtToken = require("../middleware/validateJwtToken");
@@ -31,7 +29,6 @@ function usersRoutes(App) {
   App.post(`${API_PREFIX}/signup`, validateUserSignup, createUserWithStylishSignup);
   App.post(`${API_PREFIX}/login`, validateUserLogin, loginUserWithEmailPassword);
   App.get(`${API_PREFIX}/profile`, validateJwtToken, getUserProfileWithUserInfoFromJwt);
-  App.get(`${API_PREFIX}/:id`, validateUserId, getUserById);
 }
 
 module.exports = usersRoutes;
