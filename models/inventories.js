@@ -62,18 +62,18 @@ module.exports = (sequelize, DataTypes) => {
     foreignKey: "productId",
     sourceKey: "id",
   });
-  Products.belongsTo(Inventories, {
+  Inventories.belongsTo(Products, {
     foreignKey: "productId",
     targetKey: "id"
   });
 
-  Inventories.hasOne(Colors, {
+  Colors.hasMany(Inventories, {
     foreignKey: "colorId",
     sourceKey: "id",
   });
   Inventories.belongsTo(Colors, {
     foreignKey: "colorId",
-    targetKey: "id"
+    sourceKey: "id",
   });
 
   return Inventories;

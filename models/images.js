@@ -52,7 +52,7 @@ module.exports = (sequelize, DataTypes) => {
     foreignKey: "userId",
     sourceKey: "id",
   });
-  Users.belongsTo(Images, {
+  Images.belongsTo(Users, {
     foreignKey: "userId",
     targetKey: "id"
   });
@@ -61,7 +61,7 @@ module.exports = (sequelize, DataTypes) => {
     foreignKey: "productId",
     sourceKey: "id",
   });
-  Products.belongsTo(Images, {
+  Images.belongsTo(Products, {
     foreignKey: "productId",
     targetKey: "id"
   });
@@ -70,7 +70,7 @@ module.exports = (sequelize, DataTypes) => {
     foreignKey: "campaignId",
     sourceKey: "id",
   });
-  Campaigns.belongsTo(Images, {
+  Images.belongsTo(Campaigns, {
     foreignKey: "campaignId",
     targetKey: "id"
   });
