@@ -28,6 +28,8 @@ const executeOrder = [
   'campaigns',
   'campaignProducts',
   'images',
+  'orders',
+  'orderRecipients',
 ]
 
 executeOrder
