@@ -8,7 +8,7 @@ const Sequelize = require("sequelize");
  */
 
 const info = {
-  revision: 6,
+  revision: 7,
   name: "add_colors_table",
   created: "2022-03-27T17:42:12.937Z",
   comment: "",

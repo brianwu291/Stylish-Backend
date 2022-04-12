@@ -8,7 +8,7 @@ const Sequelize = require("sequelize");
  */
 
 const info = {
-  revision: 5,
+  revision: 6,
   name: "add_unique_constraints_to_users",
   created: "2022-03-27T17:39:09.669Z",
   comment: "",
